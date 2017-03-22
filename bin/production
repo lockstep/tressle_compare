@@ -1,0 +1,2 @@
+#!/bin/sh
+HEROKU_APP=tresslecompare-production HKAPP=tresslecompare-production exec "${HEROKU_COMMAND:-heroku}" "$@"
