@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-block">
+    <h6><%= fa_icon 'filter' %> Filters</h6>
+    <hr/>
+    <%= form_for products_path, method: :get do %>
+      <%= hidden_field_tag('query', params[:query]) %>
+      <div class="form-group">
+        <label for="width">Width (inches):</label>
+        <input type="text" class="form-control" id="width" name="width" placeholder="0.0">
+      </div>
+      <div class="form-group">
+        <label for="height">Height (inches):</label>
+        <input type="text" class="form-control" id="height" name="height" placeholder="0.0">
+      </div>
+      <div class="form-group">
+        <label for="depth">Depth (inches):</label>
+        <input type="text" class="form-control" id="depth" name="depth" placeholder="0.0">
+      </div>
+      <div class="form-group">
+        <label for="color">Color:</label>
+        <select class="form-control" id="color" name="color">
+          <option>All</option>
+          <option>Red</option>
+          <option>Gold</option>
+          <option>Blue</option>
+          <option>Green</option>
+          <option>Pink</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="material">Material:</label>
+        <select class="form-control" id="material" name="material">
+          <option>All</option>
+          <option>Wood</option>
+          <option>Steel</option>
+          <option>Oak</option>
+          <option>Glass</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="material">Type:</label>
+        <select class="form-control" id="material" name="material">
+          <option>All</option>
+          <option>Living Room</option>
+          <option>Bedroom</option>
+          <option>Kitchen & Dining</option>
+          <option>Office</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="assembly_required">Assembly Required:</label>
+        <select class="form-control" id="assembly_required" name="assembly_required">
+          <option value="">Any</option>
+          <option value="true">Yes</option>
+          <option value="false">No</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Submit</button>
+    <% end %>
+  </div>
+</div>
