@@ -12,6 +12,7 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.string :weight
       t.boolean :assembly_required, default: true
       t.string :category
+      t.string :image_url
 
       t.timestamps
     end

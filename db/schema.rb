@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20170323035447) do
     t.string   "material"
     t.string   "weight"
     t.boolean  "assembly_required", default: true
+    t.string   "category"
+    t.string   "image_url"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
