@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col">
-    <%= form_for products_path, method: :get do %>
+    <%= form_for products_path, method: :get, html: {id: 'search-product-form'} do %>
       <div class="form-group input-group">
         <span class="input-group-addon"><%= fa_icon 'search' %></span>
-        <%= text_field_tag 'query', nil, placeholder: 'Search...', autofocus: true, class: 'form-control' %>
+        <%= text_field_tag 'query', params[:query], placeholder: 'Search...', autofocus: true, class: 'form-control' %>
       </div>
     <% end %>
   </div>
@@ -17,9 +17,15 @@
       <button class="btn btn-secondary dropdown-toggle" type="button" id="sort-product" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Sort by
       </button>
-      <div class="dropdown-menu" aria-labelledby="sort-product">
-        <a class="dropdown-item" href="#"><%= fa_icon('sort-alpha-asc') %> A-Z</a>
-        <a class="dropdown-item" href="#"><%= fa_icon('sort-alpha-desc') %> Z-A</a>
+      <div class="dropdown-menu sort-product" aria-labelledby="sort-product">
+        <%= link_to products_path(sort: 'name', sort_direction: 'ASC', query: params[:query]),
+          class: "dropdown-item #{'active' if @sort == 'name' && @sort_direction == 'ASC'}" do %>
+          <%= fa_icon('sort-alpha-asc') %> Name
+        <% end %>
+        <%= link_to products_path(sort: 'name', sort_direction: 'DESC', query: params[:query]),
+          class: "dropdown-item #{'active' if @sort == 'name' && @sort_direction == 'DESC'}" do %>
+          <%= fa_icon('sort-alpha-desc') %> Name
+        <% end %>
         <a class="dropdown-item" href="#"><%= fa_icon('sort-numeric-asc') %> Price</a>
         <a class="dropdown-item" href="#"><%= fa_icon('sort-numeric-desc') %> Price</a>
       </div>
