@@ -17,7 +17,7 @@
           <p class="mt-1"><%= product.description.truncate(150, separator: ' ') %></p>
         </div>
         <div class="p-2 text-right" style="min-width: 100px;">
-          <h6><%= (product.id%2 == 0) ? '$7,895.65' : '$150.55' %></h6>
+          <h6><%= "$ #{product.price}" %></h6>
         </div>
       </div>
     </div>

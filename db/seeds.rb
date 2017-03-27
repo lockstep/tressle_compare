@@ -18,6 +18,7 @@ images_url_sample = [
   '//cdn.shopify.com/s/files/1/1334/5915/products/208_11_73_silo_large.jpg?v=1480696263',
   '//cdn.shopify.com/s/files/1/1334/5915/products/323_15_31_Silo_130f2ded-715c-4889-9e0f-357006227992_large.jpg?v=1480709210'
 ]
+price_sample = [100.50, 200, 350, 50, 150.50, 1200]
 20.times do
   Product.create(
     {
@@ -31,7 +32,8 @@ images_url_sample = [
       assembly_required: [true, false].sample,
       weight: [100.55, 75, 200, 55, 80].sample,
       category: ['Bedroom', 'Living room', 'Kitchen', 'Office', 'Storage'].sample,
-      image_url: images_url_sample.sample
+      image_url: images_url_sample.sample,
+      price: price_sample.sample
     }
   )
 end

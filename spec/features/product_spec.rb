@@ -7,8 +7,22 @@ feature 'Product' do
 
     context 'products exist' do
       before do
-        @desk = create(:product)
-        @cabinet = create(:product, name: 'Red Cabinet', description: 'Nice cabinet')
+        @desk = create(
+          :product,
+          name: 'Study Desk',
+          price: 100
+        )
+        @cabinet = create(
+          :product,
+          name: 'Red Cabinet',
+          description: 'Nice cabinet',
+          price: 150.50
+        )
+        create(
+          :product,
+          name: 'Sofa',
+          price: 200
+        )
       end
 
       scenario 'user sees products in list' do
@@ -17,21 +31,43 @@ feature 'Product' do
         expect(page).to have_content 'Red Cabinet'
       end
 
-      scenario 'user can sort products by name ascending' do
-        visit products_path
-        click_link_or_button 'Sort by'
-        all('.sort-product .dropdown-item')[0].click
-        within first('.product') do
-          expect(page).to have_content 'Red Cabinet'
-        end
-      end
+      context 'sort by' do
+        context '#product' do
+          scenario 'user can sort products by name ascending' do
+            visit products_path
+            click_link_or_button 'Sort by'
+            all('.sort-product .dropdown-item')[0].click
+            within first('.product') do
+              expect(page).to have_content 'Red Cabinet'
+            end
+          end
 
-      scenario 'user can sort products by name descending' do
-        visit products_path
-        click_link_or_button 'Sort by'
-        all('.sort-product .dropdown-item')[1].click
-        within first('.product') do
-          expect(page).to have_content 'Study Desk'
+          scenario 'user can sort products by name descending' do
+            visit products_path
+            click_link_or_button 'Sort by'
+            all('.sort-product .dropdown-item')[1].click
+            within first('.product') do
+              expect(page).to have_content 'Study Desk'
+            end
+          end
+        end
+        context '#price' do
+          scenario 'sorts by price ascending' do
+            visit products_path
+            click_link_or_button 'Sort by'
+            all('.sort-product .dropdown-item')[2].click
+            within first('.product') do
+              expect(page).to have_content 'Study Desk'
+            end
+          end
+          scenario 'sorts by price descending' do
+            visit products_path
+            click_link_or_button 'Sort by'
+            all('.sort-product .dropdown-item')[3].click
+            within first('.product') do
+              expect(page).to have_content 'Sofa'
+            end
+          end
         end
       end
 

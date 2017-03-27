@@ -11,5 +11,6 @@ FactoryGirl.define do
     weight 123.45
     assembly_required true
     image_url 'http://example.com/test.png'
+    price 100
   end
 end
