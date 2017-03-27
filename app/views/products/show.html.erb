@@ -1,15 +1,17 @@
 <div class="row">
   <div class="col-5 text-center">
-    <%= image_tag '//cdn.shopify.com/s/files/1/1334/5915/products/Agadir-S13-468-C-Parvez-Taj-1_1024x1024.jpg?v=1471624773', width: 300 %>
+    <%= image_tag @product.image_url, width: 300 %>
   </div>
   <div class="col">
-    <h4 class="mb-4">AGADIR - FINE ART CANVAS PRINT</h4>
-    <h2 class="mb-5">$7,895.65</h2>
-    <p>Agadir is a fine art canvas print. This item is professionally hand stretched and gallery wrapped in an anti-warp MDF frame. It arrives ready to hang and includes a certificate of authenticity. The artist's signature is on the front.</p>
-    <p><b>Origin:</b> USA</p>
-    <p><b>Artist:</b> Parvez Taj</p>
-    <p><b>Color:</b> Multi/Print</p>
-    <p><b>Material:</b> Canvas, Wood</p>
+    <h4 class="mb-4"><%= @product.name %></h4>
+    <h2>$7,895.65</h2>
+    <span>by Shopify</span>
+    <p class="mt-3"><%= @product.description %></p>
+    <p><b>Dimensions (W" x H" x D"):</b> <%= "#{@product.width} x #{@product.height} x #{@product.depth}" %></p>
+    <p><b>Weight(lbs):</b> <%= @product.weight %></p>
+    <p><b>Material:</b>  <%= @product.material %></p>
+    <p><b>Color:</b> <%= @product.color %></p>
+    <p><b>Assembly Required:</b> <%= @product.assembly_required? ? 'Yes' : 'No' %></p>
   </div>
 </div>
 <%= link_to 'Back', :back, class: 'btn btn-link float-right mt-2' %>

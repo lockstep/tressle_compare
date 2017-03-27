@@ -2,35 +2,25 @@
   image_url = '//cdn.shopify.com/s/files/1/1334/5915/products/Agadir-S13-468-C-Parvez-Taj-1_1024x1024.jpg?v=1471624773'
   description = "Agadir is a fine art canvas print. This item is professionally hand stretched and gallery wrapped in an anti-warp MDF frame. It arrives ready to hang and includes a certificate of authenticity. The artist's signature is on the front."
 %>
-<% (1..5).each do |id| %>
-  <div class="card mb-2">
+<% @products.each do |product| %>
+  <div class="card mb-2 product" id="product-<%= product.id %>">
     <div class="card-block">
       <div class="d-flex align-items-stretch">
         <div class="p-2">
-          <%= image_tag image_url, width: 100 %>
+          <%= link_to product_path(product) do %>
+            <%= image_tag product.image_url, width: 100 %>
+          <% end %>
         </div>
         <div class="p-2">
-          <h6>AGADIR - FINE ART CANVAS PRINT <span class="small">by <%= (id%2 == 0) ? 'Pronto' : 'Shopify' %></span></h6>
-          <p class="mt-1"><%= description.truncate(150, separator: ' ') %></p>
+          <h6><%= link_to product.name, product_path(product) %></h6>
+          <span class="small">by <%= (product.id%2 == 0) ? 'Pronto' : 'Shopify' %></span>
+          <p class="mt-1"><%= product.description.truncate(150, separator: ' ') %></p>
         </div>
         <div class="p-2 text-right" style="min-width: 100px;">
-          <h6><%= (id%2 == 0) ? '$7,895.65' : '$150.55' %></h6>
+          <h6><%= (product.id%2 == 0) ? '$7,895.65' : '$150.55' %></h6>
         </div>
       </div>
     </div>
   </div>
 <% end %>
-
-<nav aria-label="page-navigation">
-  <ul class="pagination justify-content-end">
-    <li class="page-item disabled">
-      <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li>
-  </ul>
-</nav>
+<%= paginate @products %>
