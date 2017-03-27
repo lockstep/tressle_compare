@@ -6,11 +6,3 @@
     <%= flash[type] %>
   </div>
 <% end %>
-
-<% unless user_signed_in? %>
-  <% unless devise_error_messages!.blank? %>
-    <div class="alert alert-warning" role="alert">
-      <%= devise_error_messages! %>
-    </div>
-  <% end %>
-<% end %>
