@@ -1,58 +1,35 @@
 require 'rails_helper'
 
 feature 'Product' do
-  context 'user is signed in' do
-    before { @user = create(:user) }
-    include_context 'signed in user'
+  context 'products exist' do
+    before do
+      @desk = create(:product)
 
-    context 'products exist' do
-      before do
-        @desk = create(:product)
-        @cabinet = create(:product, name: 'Red Cabinet', description: 'Nice cabinet')
-      end
+      @amazon = create(:retailer)
+      @pronto = create(:retailer, name: 'Pronto')
 
-      scenario 'user sees products in list' do
-        visit products_path
-        expect(page).to have_content 'Study Desk'
-        expect(page).to have_content 'Red Cabinet'
-      end
-
-      scenario 'user can sort products by name ascending' do
-        visit products_path
-        click_link_or_button 'Sort by'
-        all('.sort-product .dropdown-item')[0].click
-        within first('.product') do
-          expect(page).to have_content 'Red Cabinet'
-        end
-      end
-
-      scenario 'user can sort products by name descending' do
-        visit products_path
-        click_link_or_button 'Sort by'
-        all('.sort-product .dropdown-item')[1].click
-        within first('.product') do
-          expect(page).to have_content 'Study Desk'
-        end
-      end
-
-      scenario 'user can search products', js: true do
-        visit products_path
-        complete_search_form
-      end
+      create(:price, product: @desk, retailer: @amazon)
+      create(:price, product: @desk, retailer: @pronto, price: 456.78)
     end
-  end
 
-  context 'user is not signed in' do
-    scenario 'user is asked to log in' do
-      visit products_path
-      expect(page).to have_content 'Login'
+    scenario 'user sees product detail' do
+      visit product_path(@desk)
+      expect(page).to have_content @desk.name
+      expect(page).to have_content @desk.description
     end
-  end
 
-  def complete_search_form(overrides={})
-    within '#search-product-form' do
-      fill_in 'query', with: overrides[:query] || 'desk'
-      find('#query').native.send_keys(:return)
+    scenario 'user sees price comparison of product' do
+      visit product_path(@desk)
+      within first('table#price-comparison tr.price') do
+        expect(page).to have_content @amazon.name
+        expect(page).to have_content '$123.45'
+        expect(page).to have_content 'Best Price'
+      end
+      within all('table#price-comparison tr.price')[1] do
+        expect(page).to have_content @pronto.name
+        expect(page).to have_content '$456.78'
+        expect(page).not_to have_content 'Best Price'
+      end
     end
   end
 end

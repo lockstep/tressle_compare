@@ -1,8 +1,5 @@
-<%
-  image_url = '//cdn.shopify.com/s/files/1/1334/5915/products/Agadir-S13-468-C-Parvez-Taj-1_1024x1024.jpg?v=1471624773'
-  description = "Agadir is a fine art canvas print. This item is professionally hand stretched and gallery wrapped in an anti-warp MDF frame. It arrives ready to hang and includes a certificate of authenticity. The artist's signature is on the front."
-%>
-<% @products.each do |product| %>
+<% @price_list.each do |item| %>
+  <% product = item.product %>
   <div class="card mb-2 product" id="product-<%= product.id %>">
     <div class="card-block">
       <div class="d-flex align-items-stretch">
@@ -13,14 +10,14 @@
         </div>
         <div class="p-2">
           <h6><%= link_to product.name, product_path(product) %></h6>
-          <span class="small">by <%= (product.id%2 == 0) ? 'Pronto' : 'Shopify' %></span>
+          <span class="small">by <%= item.retailer.name %></span>
           <p class="mt-1"><%= product.description.truncate(150, separator: ' ') %></p>
         </div>
         <div class="p-2 text-right" style="min-width: 100px;">
-          <h6><%= (product.id%2 == 0) ? '$7,895.65' : '$150.55' %></h6>
+          <h6><%= number_to_currency(item.price, precision: 2) %></h6>
         </div>
       </div>
     </div>
   </div>
 <% end %>
-<%= paginate @products %>
+<%= paginate @price_list %>
