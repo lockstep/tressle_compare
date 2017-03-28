@@ -18,8 +18,15 @@ images_url_sample = [
   '//cdn.shopify.com/s/files/1/1334/5915/products/208_11_73_silo_large.jpg?v=1480696263',
   '//cdn.shopify.com/s/files/1/1334/5915/products/323_15_31_Silo_130f2ded-715c-4889-9e0f-357006227992_large.jpg?v=1480709210'
 ]
+
+retailers = Retailer.create([
+  {name: 'Amazon', website: 'www.amazon.com'},
+  {name: 'Pronto', website: 'www.pronto.com'},
+  {name: 'Shopify', website: 'www.shopify.com'}
+])
+
 20.times do
-  Product.create(
+  product = Product.create(
     {
       name: name_sample.sample,
       description: description_sample.sample,
@@ -32,6 +39,13 @@ images_url_sample = [
       weight: [100.55, 75, 200, 55, 80].sample,
       category: ['Bedroom', 'Living room', 'Kitchen', 'Office', 'Storage'].sample,
       image_url: images_url_sample.sample
+    }
+  )
+  Price.create(
+    {
+      product: product,
+      retailer: retailers.sample,
+      price: [123.50, 456.2, 2500, 65.80, 900, 1000, 1450].sample
     }
   )
 end

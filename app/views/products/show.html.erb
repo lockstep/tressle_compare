@@ -1,11 +1,27 @@
 <div class="row">
   <div class="col-5 text-center">
-    <%= image_tag @product.image_url, width: 300 %>
+    <%= image_tag @product.image_url, width: 250 %>
   </div>
   <div class="col">
     <h4 class="mb-4"><%= @product.name %></h4>
-    <h2>$7,895.65</h2>
-    <span>by Shopify</span>
+    <table class="table" id ="price-comparison">
+      <tr>
+        <th>Retailer</th>
+        <th>Price</th>
+      </tr>
+      <% @product.prices.order(:price).each_with_index do |item, index| %>
+        <tr class="price">
+          <td><%= item.retailer.name %></td>
+          <td>
+            <%= number_to_currency(item.price, precision: 2) %>
+            <% if index.zero? %>
+              <span class="badge badge-success">Best Price</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+
+    </table>
     <p class="mt-3"><%= @product.description %></p>
     <p><b>Dimensions (W" x H" x D"):</b> <%= "#{@product.width} x #{@product.height} x #{@product.depth}" %></p>
     <p><b>Weight(lbs):</b> <%= @product.weight %></p>
