@@ -1,17 +1,13 @@
 <div class="row">
   <div class="col-5 text-center">
-    <%= image_tag @product.image_url, width: 300 %>
+    <% image_path = (@product.image_url) ? @product.image_url : 'placeholder.png' %>
+    <%= image_tag image_path, width: 300 %>
   </div>
   <div class="col">
     <h4 class="mb-4"><%= @product.name %></h4>
     <h2>$7,895.65</h2>
     <span>by Shopify</span>
     <p class="mt-3"><%= @product.description %></p>
-    <p><b>Dimensions (W" x H" x D"):</b> <%= "#{@product.width} x #{@product.height} x #{@product.depth}" %></p>
-    <p><b>Weight(lbs):</b> <%= @product.weight %></p>
-    <p><b>Material:</b>  <%= @product.material %></p>
-    <p><b>Color:</b> <%= @product.color %></p>
-    <p><b>Assembly Required:</b> <%= @product.assembly_required? ? 'Yes' : 'No' %></p>
   </div>
 </div>
 <%= link_to 'Back', :back, class: 'btn btn-link float-right mt-2' %>

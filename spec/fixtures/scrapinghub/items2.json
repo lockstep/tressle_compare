@@ -1,0 +1,19 @@
+[
+  {
+   "_template": "1234-567",
+   "name": ["Red Sofa"],
+   "description": ["Nice Sofa"],
+   "primary_category": ["Living"],
+   "secondary_category": ["Sofa"],
+   "sku": ["ABC1234"],
+   "manufacturer": ["Hello Furniture"],
+   "original_price": ["450.00"],
+   "current_price": ["150.20"],
+   "average_rating": ["3.0"],
+   "ratings_count": ["56"],
+   "image_url": "http://www.example2.com/sofa.jpg",
+   "url": "https://www.example2.com/sofa/1",
+   "_type": "home_product",
+   "_cached_page_id": "123abc"
+  }
+]

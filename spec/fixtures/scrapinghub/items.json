@@ -1,0 +1,53 @@
+[
+  {
+   "_template": "1234-567",
+   "name": ["Red Sofa"],
+   "description": ["Nice Sofa"],
+   "primary_category": ["Living"],
+   "secondary_category": ["Sofa"],
+   "sku": ["ABC1234"],
+   "manufacturer": ["Hello Furniture"],
+   "original_price": ["450.00"],
+   "current_price": ["329.00"],
+   "average_rating": ["3.5"],
+   "ratings_count": ["123"],
+   "image_url": "http://www.example.com/sofa.jpg",
+   "url": "https://www.example.com/sofa/1",
+   "_type": "home_product",
+   "_cached_page_id": "123abc"
+  },
+  {
+   "_template": "1234-567",
+   "name": ["OMG Sofa"],
+   "description": ["Excellent Sofa"],
+   "primary_category": ["Living"],
+   "secondary_category": ["Sofa"],
+   "sku": ["DEF1234"],
+   "manufacturer": ["Hello Furniture"],
+   "original_price": ["1200.00"],
+   "current_price": ["456.50"],
+   "average_rating": ["4.5"],
+   "ratings_count": ["1234"],
+   "image_url": "http://www.example.com/omg_sofa.jpg",
+   "url": "https://www.example.com/sofa/2",
+   "_type": "home_product",
+   "_cached_page_id": "123abc"
+  },
+  {
+   "_template": "1234-567",
+   "name": ["Soften Bed"],
+   "description": ["Feel like feather"],
+   "primary_category": ["Living"],
+   "secondary_category": ["Bed"],
+   "sku": ["BED1234"],
+   "manufacturer": ["OMG Furniture"],
+   "original_price": ["1450.50"],
+   "current_price": ["1000.00"],
+   "average_rating": ["4.0"],
+   "ratings_count": ["100"],
+   "image_url": "http://www.example.com/bed.jpg",
+   "url": "https://www.example.com/bed/1",
+   "_type": "home_product",
+   "_cached_page_id": "123abc"
+  }
+]
