@@ -9,6 +9,13 @@ feature 'Product' do
       before do
         @desk = create(:product)
         @cabinet = create(:product, name: 'Red Cabinet', description: 'Nice cabinet')
+
+        @amazon = create(:retailer)
+        @ebay = create(:retailer, name: 'Ebay')
+
+        create(:comparison, product: @desk, retailer: @amazon)
+        create(:comparison, product: @desk, retailer: @ebay, current_price: 1000)
+        create(:comparison, product: @cabinet, retailer: @amazon, current_price: 456.7)
       end
 
       scenario 'user sees products in list' do
@@ -32,6 +39,26 @@ feature 'Product' do
         all('.sort-product .dropdown-item')[1].click
         within first('.product') do
           expect(page).to have_content 'Study Desk'
+        end
+      end
+
+      scenario 'user can sort products by price ascending' do
+        visit products_path
+        click_link_or_button 'Sort by'
+        all('.sort-product .dropdown-item')[2].click
+        within first('.product') do
+          expect(page).to have_content 'Study Desk'
+          expect(page).to have_content '$123.45'
+        end
+      end
+
+      scenario 'user can sort products by price descending' do
+        visit products_path
+        click_link_or_button 'Sort by'
+        all('.sort-product .dropdown-item')[3].click
+        within first('.product') do
+          expect(page).to have_content 'Study Desk'
+          expect(page).to have_content '$1,000.00'
         end
       end
 
