@@ -45,6 +45,7 @@ gem 'aws-sdk', '~> 2.3.0'
 gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'font-awesome-rails'
 gem 'kaminari'
+gem 'scrapinghub'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'

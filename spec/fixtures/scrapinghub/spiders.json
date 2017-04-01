@@ -1,0 +1,6 @@
+{
+  "spiders": [
+    {"version": "portia-1234", "id": "www.example1.com", "tags": [], "type": "portia"},
+    {"version": "portia-1234", "id": "www.example2.com", "tags": [], "type": "portia"}
+  ]
+}
