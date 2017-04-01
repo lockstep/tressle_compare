@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :comparison do
+  factory :retailer_product do
     product
     retailer
     original_price 200.5

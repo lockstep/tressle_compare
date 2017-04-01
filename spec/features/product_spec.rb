@@ -13,9 +13,9 @@ feature 'Product' do
         @amazon = create(:retailer)
         @ebay = create(:retailer, name: 'Ebay')
 
-        create(:comparison, product: @desk, retailer: @amazon)
-        create(:comparison, product: @desk, retailer: @ebay, current_price: 1000)
-        create(:comparison, product: @cabinet, retailer: @amazon, current_price: 456.7)
+        create(:retailer_product, product: @desk, retailer: @amazon)
+        create(:retailer_product, product: @desk, retailer: @ebay, current_price: 1000)
+        create(:retailer_product, product: @cabinet, retailer: @amazon, current_price: 456.7)
       end
 
       scenario 'user sees products in list' do

@@ -29,10 +29,10 @@ module ProductImporter
           image_url: extract_data(item['primary_image_url'])
         })
 
-        comparison = Comparison.where(
+        retailer_product = RetailerProduct.where(
           product: product, retailer: retailer
         ).first_or_initialize
-        comparison.update({
+        retailer_product.update({
           original_price: extract_data(item['original_price']),
           current_price: extract_data(item['current_price']),
           average_rating: extract_data(item['average_rating']),

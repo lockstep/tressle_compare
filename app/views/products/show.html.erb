@@ -10,7 +10,7 @@
         <th>Retailer</th>
         <th>Price</th>
       </tr>
-      <% @product.comparisons.order(:current_price).each_with_index do |item, index| %>
+      <% @product.retailer_products.order(:current_price).each_with_index do |item, index| %>
         <tr class="price">
           <td><%= item.retailer.name %></td>
           <td>

@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
-  has_many :comparisons
-  has_many :retailers, through: :comparisons
+  has_many :retailer_products
+  has_many :retailers, through: :retailer_products
 
   scope :search, -> (query) {
     where(<<-SQL, "%#{query}%", "%#{query}%")
@@ -9,9 +9,9 @@ class Product < ApplicationRecord
     SQL
   }
 
-  scope :with_comparisons, -> {
-    joins('LEFT OUTER JOIN comparisons ON products.id = comparisons.product_id')
-    .joins('INNER JOIN retailers ON retailers.id = comparisons.retailer_id')
-    .select('products.*, comparisons.current_price, retailers.name AS retailer_name')
+  scope :includes_retailers_info, -> {
+    joins('LEFT OUTER JOIN retailer_products ON products.id = retailer_products.product_id')
+    .joins('INNER JOIN retailers ON retailers.id = retailer_products.retailer_id')
+    .select('products.*, retailer_products.current_price, retailers.name AS retailer_name')
   }
 end
