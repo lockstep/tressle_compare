@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Product' do
+feature 'Search page' do
   context 'user is signed in' do
     before { @user = create(:user) }
     include_context 'signed in user'

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :retailer_product do
-    product
-    retailer
+    product { create(:product) }
+    retailer { create(:retailer) }
     original_price 200.5
     current_price 123.45
     average_rating 4.5
