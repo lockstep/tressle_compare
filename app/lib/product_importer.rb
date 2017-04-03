@@ -37,6 +37,10 @@ module ProductImporter
           current_price: extract_data(item['current_price']),
           average_rating: extract_data(item['average_rating']),
           ratings_count: extract_data(item['ratings_count']),
+          primary_category: extract_data(item['primary_category']),
+          secondary_category: extract_data(item['secondary_category']),
+          tertiary_category: extract_data(item['tertiary_category']),
+          color: extract_data(item['color']),
           url: extract_data(item['url'])
         })
       end

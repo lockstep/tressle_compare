@@ -9,5 +9,13 @@ describe ProductImporter do
       product = Product.all.order(:name).first
       expect(product.name).to eq 'OMG Sofa'
     end
+    it 'extracts categories from data' do
+      expect(Product.count).to eq 0
+      ProductImporter.import!
+      expect(Product.count).to eq 3
+      product = Product.first
+      retailer_product = product.retailer_products.first
+      expect(retailer_product.primary_category).not_to eq nil
+    end
   end
 end
