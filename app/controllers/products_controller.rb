@@ -1,17 +1,27 @@
 class ProductsController < ApplicationController
   # before_action :authenticate_user!
 
+  DEFAULT_SORT = { name: :asc }
+
   def index
-    @products = Product.all
-    @products = @products.search(params[:query]) if params[:query].present?
-    if params[:secondary_category].present?
-      @products = @products.where(secondary_category: params[:secondary_category])
-    end
-    @products = @products.order(:name)
-    @products = @products.page(params[:page]).per(12)
+    query = params[:query].present? ? params[:query] : '*'
+    @products = Product.search(
+      query,
+      fields: [:name, :description],
+      order: sort_by,
+      page: params[:page],
+      per_page: 12
+    )
   end
 
   def show
     @product = Product.find(params[:id])
+  end
+
+  private
+
+  def sort_by
+    return DEFAULT_SORT if params[:sort].blank?
+    return { params[:sort] => params[:sort_direction] }
   end
 end
