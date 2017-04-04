@@ -49,5 +49,13 @@
    "url": "https://www.example.com/bed/1",
    "_type": "home_product",
    "_cached_page_id": "123abc"
+  },
+  {
+   "_template": "1234-567",
+   "description": ["Lorem ipsum"],
+   "primary_category": ["Home"],
+   "current_price": ["1000.00"],
+   "_type": "home_product",
+   "_cached_page_id": "1234abc"
   }
 ]
