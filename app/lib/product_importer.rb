@@ -18,7 +18,7 @@ module ProductImporter
 
   def self.manipulate_product(items, retailer)
     items.each do |item|
-      next if item['current_price'].nil? || item['name'].nil?
+      next if item['current_price'].blank? || item['name'].blank?
       product_name = extract_data(item['name'])
       if product_name
         product = Product.where(name: product_name).first_or_initialize
