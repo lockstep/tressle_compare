@@ -8,7 +8,7 @@ from scrapy.spiders import Rule
 
 from ..utils.spiders import BasePortiaSpider
 from ..utils.starturls import FeedGenerator, FragmentGenerator
-from ..utils.processors import Item, Field, Text, Number, Price, Date, Url, Image, Regex
+from ..utils.processors import Item, Field, Text, Number, Price, Url, Image, Regex
 from ..items import PortiaItem
 
 

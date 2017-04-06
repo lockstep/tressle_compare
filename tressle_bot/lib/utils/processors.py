@@ -11,7 +11,8 @@ try:
 except ImportError:
     from itertools import zip_longest as izip_longest
 
-from dateparser.date import DateDataParser
+# This causes the build to fail on ScrapingHub...
+# from dateparser.date import DateDataParser
 from scrapy.loader.processors import Identity as _Identity
 from scrapy.utils.markup import unquote_markup
 from w3lib.html import remove_tags
@@ -152,22 +153,22 @@ class Price(BaseProcessor):
         return prices
 
 
-class Date(Text):
-    def __init__(self, format='%Y-%m-%dT%H:%M:%S'):
-        self.format = format
-
-    def __call__(self, values):
-        values = super(Date, self).__call__(values)
-        dates = []
-        for text in values:
-            if isinstance(text, (dict, list)):
-                dates.append(text)
-            try:
-                date = DateDataParser().get_date_data(text)['date_obj']
-                dates.append(date.strftime(self.format))
-            except ValueError:
-                pass
-        return dates
+# class Date(Text):
+#     def __init__(self, format='%Y-%m-%dT%H:%M:%S'):
+#         self.format = format
+#
+#     def __call__(self, values):
+#         values = super(Date, self).__call__(values)
+#         dates = []
+#         for text in values:
+#             if isinstance(text, (dict, list)):
+#                 dates.append(text)
+#             try:
+#                 date = DateDataParser().get_date_data(text)['date_obj']
+#                 dates.append(date.strftime(self.format))
+#             except ValueError:
+#                 pass
+#         return dates
 
 
 class Url(Text):

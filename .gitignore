@@ -24,3 +24,4 @@
 # Scrapy stuff
 .ropeproject
 *.pyc
+tressle_bot/build
