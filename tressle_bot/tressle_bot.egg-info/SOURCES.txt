@@ -7,7 +7,6 @@ lib/settings.py
 lib/spiders/__init__.py
 lib/spiders/crateandbarrel_com.py
 lib/spiders/hayneedle_com.py
-lib/spiders/hayneedle_com_latest.py
 lib/spiders/houzz_com.py
 lib/spiders/jossandmain_com.py
 lib/spiders/wayfair_com.py
