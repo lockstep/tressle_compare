@@ -25,6 +25,7 @@ module ProductImporter
         product.update({
           name: product_name,
           manufacturer: extract_data(item['manufacturer']),
+          manufacturer_sku: extract_data(item['manufacturer_sku']),
           description: extract_data(item['description']),
           sku: extract_data(item['sku']),
           image_url: extract_data(item['primary_image_url'])

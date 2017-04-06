@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403063007) do
+ActiveRecord::Schema.define(version: 20170406140729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,38 +18,19 @@ ActiveRecord::Schema.define(version: 20170403063007) do
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "sku"
-    t.string   "image_url"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "manufacturer"
-  end
-
-  create_table "retailer_products", force: :cascade do |t|
-    t.integer  "product_id"
-    t.integer  "retailer_id"
-    t.decimal  "original_price"
-    t.decimal  "current_price"
-    t.decimal  "average_rating"
-    t.integer  "ratings_count"
-    t.string   "url"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "primary_category"
-    t.string   "secondary_category"
-    t.string   "tertiary_category"
+    t.string   "code"
+    t.decimal  "width"
+    t.decimal  "height"
+    t.decimal  "depth"
     t.string   "color"
-    t.index ["product_id"], name: "index_retailer_products_on_product_id", using: :btree
-    t.index ["retailer_id"], name: "index_retailer_products_on_retailer_id", using: :btree
-  end
-
-  create_table "retailers", force: :cascade do |t|
-    t.string   "name"
+    t.string   "material"
+    t.string   "weight"
+    t.boolean  "assembly_required", default: true
+    t.string   "category"
     t.string   "image_url"
-    t.string   "website"
-    t.boolean  "active",     default: true
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.text     "manufacturer_sku"
   end
 
   create_table "users", force: :cascade do |t|
