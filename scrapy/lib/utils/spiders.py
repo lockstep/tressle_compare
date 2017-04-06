@@ -70,6 +70,10 @@ class BasePortiaSpider(CrawlSpider):
                         ld.add_value(field.name,
                                      self.load_item(field, selector))
                 else:
-                    ld.add_css(field.name, field.selector, *field.processors,
-                               required=field.required)
+                    if (field.selector[0:2] == '//'):
+                        ld.add_xpath(field.name, field.selector, *field.processors,
+                                   required=field.required)
+                    else:
+                        ld.add_css(field.name, field.selector, *field.processors,
+                                   required=field.required)
             yield ld.load_item()

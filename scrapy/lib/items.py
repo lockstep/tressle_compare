@@ -2,9 +2,8 @@ from __future__ import absolute_import
 
 import scrapy
 from collections import defaultdict
-from scrapy.loader.processors import Join, MapCompose, Identity
-from w3lib.html import remove_tags
-from .utils.processors import Text, Number, Price, Date, Url, Image
+from scrapy.loader.processors import Join, Identity
+from .utils.processors import Text, Price, Url
 
 
 class PortiaItem(scrapy.Item):
@@ -31,66 +30,7 @@ class PortiaItem(scrapy.Item):
         return string
 
 
-class ProductInfoItem(PortiaItem):
-    tertiary_category = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    secondary_category = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    color = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    ratings_count = scrapy.Field(
-        input_processor=Number(),
-        output_processor=Join(),
-    )
-    sku = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    menufacturer = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    description = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    name = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    original_price = scrapy.Field(
-        input_processor=Price(),
-        output_processor=Join(),
-    )
-    current_price = scrapy.Field(
-        input_processor=Price(),
-        output_processor=Join(),
-    )
-    primary_category = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    rating = scrapy.Field(
-        input_processor=Number(),
-        output_processor=Join(),
-    )
-    material = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    primary_image_url = scrapy.Field(
-        input_processor=Url(),
-        output_processor=Join(),
-    )
-
-
-class HomeProductAItem(PortiaItem):
+class HomeProductItem(PortiaItem):
     current_price_max = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
@@ -100,6 +40,10 @@ class HomeProductAItem(PortiaItem):
         output_processor=Join(),
     )
     manufacturer = scrapy.Field(
+        input_processor=Text(),
+        output_processor=Join(),
+    )
+    manufacturer_sku = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
     )
