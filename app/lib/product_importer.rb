@@ -1,18 +1,17 @@
 module ProductImporter
   def self.import!
     scraping = Scrapinghub::Scrapinghub.new(ENV['SCRAPINGHUB_API_KEY'])
-    scraping.projects.response['projects'].each do |project_id|
-      scraping.spiders(project: project_id).response['spiders'].each do |spider|
-        retailer = Retailer.where(website: spider['id']).first_or_initialize
-        retailer.update(name: spider['id'])
-        next if spider['version'].nil?
+    project_id = ENV['SCRAPINGHUB_PROJECT_ID']
+    scraping.spiders(project: project_id).response['spiders'].each do |spider|
+      retailer = Retailer.where(website: spider['id']).first_or_initialize
+      retailer.update(name: spider['id'])
+      next if spider['version'].nil?
 
-        items = scraping.spider_items(
-          project: project_id,
-          spider: spider['id']
-        ).response
-        manipulate_product(items, retailer) if items.size > 0
-      end
+      items = scraping.spider_items(
+        project: project_id,
+        spider: spider['id']
+      ).response
+      manipulate_product(items, retailer) if items.size > 0
     end
   end
 
