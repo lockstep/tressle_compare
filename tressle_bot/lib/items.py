@@ -55,10 +55,6 @@ class HomeProductItem(PortiaItem):
         input_processor=Text(),
         output_processor=Join(),
     )
-    brand = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
     dimensions = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
@@ -83,10 +79,6 @@ class HomeProductItem(PortiaItem):
         input_processor=Text(),
         output_processor=Join(),
     )
-    rating_count = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
     current_price = scrapy.Field(
         input_processor=Price(),
         output_processor=Join(),
@@ -100,10 +92,6 @@ class HomeProductItem(PortiaItem):
         output_processor=Join(),
     )
     primary_category = scrapy.Field(
-        input_processor=Text(),
-        output_processor=Join(),
-    )
-    rating = scrapy.Field(
         input_processor=Text(),
         output_processor=Join(),
     )

@@ -34,6 +34,23 @@
    "_cached_page_id": "123abc"
   },
   {
+    "_template": "1234-567",
+    "name": ["OMG Sofa"],
+    "description": ["Excellent Sofa"],
+    "primary_category": ["Living"],
+    "secondary_category": ["Sofa"],
+    "sku": ["DEF1234"],
+    "manufacturer": ["Hello Furniture"],
+    "original_price": ["1200.00"],
+    "current_price": ["456.50"],
+    "average_rating": ["4.5"],
+    "ratings_count": ["1234"],
+    "image_url": "http://www.example.com/omg_sofa.jpg",
+    "url": "https://www.example.com/sofa/2?sup=yo",
+    "_type": "home_product",
+    "_cached_page_id": "123abc"
+  },
+  {
    "_template": "1234-567",
    "name": ["Soften Bed"],
    "description": ["Feel like feather"],

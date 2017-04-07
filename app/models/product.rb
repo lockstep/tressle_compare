@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   has_many :retailer_products
   has_many :retailers, through: :retailer_products
+  validates_presence_of :external_url, :name, :current_price
 
   scope :search, -> (query) {
     where(<<-SQL, "%#{query}%", "%#{query}%")

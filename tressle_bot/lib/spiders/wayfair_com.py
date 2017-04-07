@@ -85,7 +85,8 @@ class Wayfair(BasePortiaSpider):
                     Field(
                         u'name',
                         u'.clearfix > .ProductDetailInfoBlock > .ProductDetailInfoBlock-wrap > .ProductDetailInfoBlock-header > .ProductDetailInfoBlock-header-title *::text',
-                        []),
+                        [],
+                        True),
                     Field(
                         u'current_price',
                         u'.clearfix > .ProductDetailInfoBlock > .ProductDetailInfoBlock-wrap > .js-pricing-block > .ProductDetailInfoBlock-pricing > .ProductDetailInfoBlock-pricing-amountWrap > .ProductDetailInfoBlock-pricing-amount > span *::text',
@@ -99,11 +100,11 @@ class Wayfair(BasePortiaSpider):
                         u'.ProductDetail-content > .ProductDetail-wrap > .ProductDetail-leftCol > div:nth-child(1) > .js-product-nova-information > .ProductDetailSpecifications > .ProductDetailSpecifications-expandableContent > .js-content-contain > p *::text',
                         []),
                     Field(
-                        u'rating',
+                        u'average_rating',
                         u'.ProductDetail-content > .ProductDetail-wrap > .ProductDetail-leftCol > .ProductDetailReviews > .track_visibility > .ProductDetailReviews-header > .ProductDetailReviews-totals > .ReviewStars-wrapper > .ReviewStars-reviews *::text',
                         []),
                     Field(
-                        u'rating_count',
+                        u'ratings_count',
                         u'.ProductDetail-content > .ProductDetail-wrap > .ProductDetail-leftCol > .ProductDetailReviews > .track_visibility > .ProductDetailReviews-header > .ProductDetailReviews-totals > .ProductDetailReviews-totals-based > span *::text',
                         [])]),
             Item(
@@ -214,7 +215,7 @@ class Wayfair(BasePortiaSpider):
                         u'.ProductDetail-content > .ProductDetail-wrap > .ProductDetail-leftCol > div:nth-child(1) > .js-product-nova-information > .ProductDetailSpecifications > .ProductDetailSpecifications-expandableContent > .js-content-contain > p *::text',
                         []),
                     Field(
-                        u'rating',
+                        u'average_rating',
                         u'.ProductDetail-content > .ProductDetail-wrap > .ProductDetail-leftCol > .ProductDetailReviews > .track_visibility > .ProductDetailReviews-header > .ProductDetailReviews-totals > .ReviewStars-wrapper > .ReviewStars-reviews *::text',
                         []),
                     Field(
