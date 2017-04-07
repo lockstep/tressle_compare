@@ -13,22 +13,34 @@ from ..items import PortiaItem
 
 
 class Houzz(BasePortiaSpider):
-    name = "www.houzz.com"
-    allowed_domains = [u'www.houzz.com', u'www.houzz.com']
-    start_urls = [u'https://www.houzz.com/',
-                  u'http://www.houzz.com/photos/kitchen-and-dining',
-                  u'http://www.houzz.com/photos/bath-products',
-                  u'http://www.houzz.com/photos/bedroom-products',
-                  u'http://www.houzz.com/photos/living-products',
-                  u'http://www.houzz.com/photos/lighting',
-                  u'http://www.houzz.com/photos/furniture',
-                  u'http://www.houzz.com/photos/home-decor',
-                  u'http://www.houzz.com/photos/home-improvement',
-                  u'http://www.houzz.com/photos/outdoor-products']
+    name = "houzz"
+    # To test against local files uncomment the following, comment out
+    # the allowed domains, change the allow rule to 'file', follow to False,
+    # and use the terminal command: scrapy crawl wayfair
+    # base_path = 'file:///Users/Bird/Tripler/tressle_compare/tressle_bot/lib/samples'
+    # start_urls = [
+    #     base_path + '/houzz-1.html',
+    #     base_path + '/houzz-2.html'
+    # ]
+
+    allowed_domains = [u'www.houzz.com']
+    start_urls = [
+        u'https://www.houzz.com/',
+        u'http://www.houzz.com/photos/kitchen-and-dining',
+        u'http://www.houzz.com/photos/bath-products',
+        u'http://www.houzz.com/photos/bedroom-products',
+        u'http://www.houzz.com/photos/living-products',
+        u'http://www.houzz.com/photos/lighting',
+        u'http://www.houzz.com/photos/furniture',
+        u'http://www.houzz.com/photos/home-decor',
+        u'http://www.houzz.com/photos/home-improvement',
+        u'http://www.houzz.com/photos/outdoor-products'
+    ]
+
     rules = [
         Rule(
             LinkExtractor(
-                allow=('.*'),
+                allow=(u'photos'),
                 deny=()
             ),
             callback='parse_item',
@@ -40,13 +52,30 @@ class Houzz(BasePortiaSpider):
             Item(
                 PortiaItem,
                 None,
-                u'.noBorders',
+                u'#mainContent',
                 [
+                    Field(
+                        u'name',
+                        u'.rightSideBarWide > .marketplace > div > .productTitle > .header-1 *::text',
+                        [],
+                        False),
+                    Field(
+                        u'description',
+                        u'.rightSideBarWide > .marketplace > div > .detailBox > .description *::text',
+                        []),
+                    Field(
+                        u'primary_image_url',
+                        u'.leftSideContentNarrow > .spaceContent > .viewSpaceImage > .mainImageWrap > .viewImage::attr(src)',
+                        []),
                     Field(
                         u'manufacturer',
                         u'.rightSideBarWide > .hzProduct > div > .detailBox > .seller-shipping-info > .curMpListing > .list-unstyled > .listing > .text-bold > a *::text',
                         []),
                     Field(
+                        u'manufacturer_sku',
+                        u"//script[contains(., 'sku')]/text()",
+                        [Regex('sku":"(.*?)"')]),
+                    Field(
                         u'primary_category',
                         u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(3) > .breadcrumb-item-link > span *::text',
                         []),
@@ -59,118 +88,24 @@ class Houzz(BasePortiaSpider):
                         u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(7) > .breadcrumb-item-link > span *::text',
                         []),
                     Field(
-                        u'primary_image_url',
-                        u'.leftSideContentNarrow > .spaceContent > .viewSpaceImage > .mainImageWrap > .viewImage::attr(src)',
-                        []),
-                    Field(
-                        u'rating',
-                        u'.leftSideContentNarrow > .spaceContent > .product-reviews > .clearfix > .clearfix > .review-avg *::text',
+                        u'average_rating',
+                        u'.review-avg::text',
                         []),
                     Field(
                         u'ratings_count',
                         u'.leftSideContentNarrow > .spaceContent > .product-reviews > .clearfix > .clearfix > .reviews-count > span *::text',
                         []),
-                    Field(
-                        u'name',
-                        u'.rightSideBarWide > .marketplace > div > .productTitle > .header-1 *::text',
-                        [],
-                        True),
-                    Field(
-                        u'current_price',
-                        u'.rightSideBarWide > .marketplace > div > .buyBox > .buyContainer > .clearfix > .row > .col-xs-12 > .product-price *::text',
-                        [],
-                        True),
                     Field(
                         u'original_price',
                         u'.rightSideBarWide > .marketplace > div > .buyBox > .buyContainer > .clearfix > .row > .col-xs-12 > .text-m *::text',
                         []),
                     Field(
-                        u'description',
-                        u'.rightSideBarWide > .marketplace > div > .detailBox > .description *::text',
-                        [])]),
-            Item(
-                PortiaItem,
-                None,
-                u'.noBorders',
-                [
-                    Field(
-                        u'manufacturer',
-                        u'.rightSideBarWide > .hzProduct > div > .detailBox > .seller-shipping-info > .curMpListing > .list-unstyled > .listing > .text-bold > a::attr(href)',
-                        []),
-                    Field(
-                        u'primary_category',
-                        u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(3) > .breadcrumb-item-link > span *::text',
-                        []),
-                    Field(
-                        u'secondary_category',
-                        u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(5) > .breadcrumb-item-link > span *::text',
-                        []),
-                    Field(
-                        u'tertiary_category',
-                        u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(7) > .breadcrumb-item-link > span *::text',
-                        []),
-                    Field(
-                        u'primary_image_url',
-                        u'.leftSideContentNarrow > .spaceContent > .viewSpaceImage > .mainImageWrap > .viewImage::attr(src)',
-                        []),
-                    Field(
-                        u'rating',
-                        u'.leftSideContentNarrow > .spaceContent > .product-reviews > .clearfix > .clearfix > .review-avg *::text',
-                        []),
-                    Field(
-                        u'ratings_count',
-                        u'.leftSideContentNarrow > .spaceContent > .product-reviews > .clearfix > .clearfix > .reviews-count > span *::text',
-                        []),
-                    Field(
-                        u'name',
-                        u'.rightSideBarWide > .hzProduct > div > .productTitle > .header-1 *::text',
-                        []),
-                    Field(
                         u'current_price',
-                        u'.rightSideBarWide > .hzProduct > div > .buyBox > .buyContainer > .clearfix > .row > .col-xs-12 > .product-price *::text',
-                        []),
-                    Field(
-                        u'original_price',
-                        u'.rightSideBarWide > .hzProduct > div > .buyBox > .buyContainer > .clearfix > .row > .col-xs-12 > .text-m *::text',
-                        []),
-                    Field(
-                        u'description',
-                        u'.rightSideBarWide > .hzProduct > div > .detailBox > .description *::text',
-                        [])]),
-            Item(
-                PortiaItem,
-                None,
-                u'.noBorders',
-                [
-                    Field(
-                        u'manufacturer',
-                        u'.rightSideBarWide > .hzProduct > div > .detailBox > .seller-shipping-info > .curMpListing > .list-unstyled > .listing > .text-bold > a::attr(href)',
-                        []),
-                    Field(
-                        u'primary_category',
-                        u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(3) > .breadcrumb-item-link > span *::text',
-                        []),
-                    Field(
-                        u'secondary_category',
-                        u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(5) > .breadcrumb-item-link > span *::text',
-                        []),
-                    Field(
-                        u'tertiary_category',
-                        u'.leftSideContentNarrow > .navigationTopicBreadcrumbs > .breadcrumb > li:nth-child(7) > .breadcrumb-item-link > span *::text',
-                        []),
-                    Field(
-                        u'primary_image_url',
-                        u'.leftSideContentNarrow > .spaceContent > .viewSpaceImage > .mainImageWrap > .viewImage::attr(src)',
-                        []),
-                    Field(
-                        u'name',
-                        u'.rightSideBarWide > .hzProduct > div > .productTitle > .header-1 *::text',
-                        []),
-                    Field(
-                        u'current_price',
-                        u'.rightSideBarWide > .hzProduct > div > .buyBox > .buyContainer > .clearfix > .row > .col-xs-12 > .product-price *::text',
-                        []),
-                    Field(
-                        u'description',
-                        u'.rightSideBarWide > .hzProduct > div > .detailBox > .description *::text',
-                        [])])]]
+                        u'.rightSideBarWide > .marketplace > div > .buyBox > .buyContainer > .clearfix > .row > .col-xs-12 > .product-price *::text',
+                        [],
+                        False)
+                ]
+            )
+        ]
+    ]
+
