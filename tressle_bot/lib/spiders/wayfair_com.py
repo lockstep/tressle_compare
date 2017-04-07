@@ -38,6 +38,12 @@ class Wayfair(BasePortiaSpider):
     ]
 
     rules = [
+        # Rule(
+        #     LinkExtractor(
+        #         allow=('file')
+        #     ),
+        #     callback='parse_item'
+        # )
         Rule(
             LinkExtractor(
                 allow=('.*'),
