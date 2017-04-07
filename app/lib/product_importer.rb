@@ -3,14 +3,16 @@ module ProductImporter
     scraping = Scrapinghub::Scrapinghub.new(ENV['SCRAPINGHUB_API_KEY'])
     project_id = ENV['SCRAPINGHUB_PROJECT_ID']
     scraping.spiders(project: project_id).response['spiders'].each do |spider|
-      # NOTE: What does this protect us against?
-      next if spider['version'].nil?
-
-      items = scraping.spider_items(
-        project: project_id,
-        spider: spider['id']
-      ).response
-      save_or_update_products(items)
+      begin
+        items = scraping.spider_items(project: project_id, spider: spider['id']).response
+        save_or_update_products(items)
+      rescue RuntimeError
+        # If a spider doesn't have items we see this on the spider_items call:
+        # RuntimeError: Invalid Net:HTTP request sent to ApiResponse
+        # .../scrapinghub-0.0.3/lib/scrapinghub/api_response.rb:10:in `initia...
+        # .../scrapinghub-0.0.3/lib/scrapinghub/scrapinghub.rb:74:in `new'
+        # .../scrapinghub-0.0.3/lib/scrapinghub/scrapinghub.rb:74:in `block i...
+      end
     end
   end
 
