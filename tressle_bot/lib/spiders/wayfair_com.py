@@ -33,8 +33,20 @@ class Wayfair(BasePortiaSpider):
     allowed_domains = [u'www.wayfair.com']
 
     start_urls = [
-        u'https://www.wayfair.com/Madison-Home-USA-Reversible-Chaise-Sectional-MHUS1049.html',
-        u'https://www.wayfair.com/Andover-Mills%C2%AE-Russ-Sectional-ANDO2369.html'
+        u'https://www.wayfair.com/Furniture-C45974.html',
+        u'https://www.wayfair.com/Rugs-C215385.html',
+        u'https://www.wayfair.com/Outdoor-C32334.html',
+        u'https://www.wayfair.com/D%C3%A9cor-C45752.html',
+        u'https://www.wayfair.com/Bed-and-Bath-C215329.html',
+        u'https://www.wayfair.com/Lighting-C215735.html',
+        u'https://www.wayfair.com/Kitchen-C45667.html',
+        u'https://www.wayfair.com/Window-Treatments-C416567.html',
+        u'https://www.wayfair.com/Storage-and-Organization-C215875.html',
+        u'https://www.wayfair.com/Baby-and-Kids-C45226.html',
+        u'https://www.wayfair.com/Home-Improvement-C45342.html',
+        u'https://www.wayfair.com/Mattresses-C414871.html',
+        u'https://www.wayfair.com/All-Pet-Furniture-C504273.html',
+        u'https://www.wayfair.com/Seasonal-and-Holiday-Decor-C1859601.html',
     ]
 
     rules = [
@@ -46,11 +58,18 @@ class Wayfair(BasePortiaSpider):
         # )
         Rule(
             LinkExtractor(
-                allow=('.*'),
+                allow=('-C\d+\.html'),
+                deny=()
+            ),
+            follow=True # This is the default if no callback
+        ),
+        Rule(
+            LinkExtractor(
+                allow=('-[A-Z]{2,}\d+\.html'),
                 deny=()
             ),
             callback='parse_item',
-            follow=True
+            follow=False # This is the default if callback present
         )
     ]
     items = [
