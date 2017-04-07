@@ -11,8 +11,9 @@ from ..items import HomeProductItem
 class Wayfair(BasePortiaSpider):
     name = "wayfair"
     # To test against local files uncomment the following, comment out
-    # the allowed domains, and use the terminal command: scrapy crawl wayfair
-    # base_path = 'file:///Users/Admin/Lockstep/apps/tressle_compare/scrapy/lib/samples'
+    # the allowed domains, change the allow rule to 'file', follow to False,
+    # and use the terminal command: scrapy crawl wayfair
+    # base_path = 'file:///Users/Admin/Lockstep/apps/tressle_compare/tressle_bot/lib/samples'
     # start_urls = [
     #     base_path + '/wayfair-1.html'
     # ]
