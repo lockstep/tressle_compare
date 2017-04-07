@@ -7,6 +7,17 @@ from ..utils.spiders import BasePortiaSpider
 from ..utils.processors import Item, Field, Text, Regex
 from ..items import HomeProductItem
 
+# OBSERVATIONS:
+# Links that are categories as opposed to products seem to take the following
+# form, with what appears to be a "category id" towards the end starting with C:
+# https://www.wayfair.com/Kitchen-and-Dining-Tables-C46129.html
+# They also appear with a ~ symbol followed by the category:
+# https://www.wayfair.com/Kitchen-and-Dining-Sets-l145-c46025-O1253~Vinyl.html
+# Or have curated-collections in the url:
+# https://www.wayfair.com/curated-collections/Kitchen-&-Dining-Finds~E66740.html
+# Other non-product indicators include:
+# [ 'similar-to-event', 'login.php' ]
+
 
 class Wayfair(BasePortiaSpider):
     name = "wayfair"
@@ -15,7 +26,8 @@ class Wayfair(BasePortiaSpider):
     # and use the terminal command: scrapy crawl wayfair
     # base_path = 'file:///Users/Admin/Lockstep/apps/tressle_compare/tressle_bot/lib/samples'
     # start_urls = [
-    #     base_path + '/wayfair-1.html'
+    #     base_path + '/wayfair-1.html',
+    #     base_path + '/wayfair-2.html'
     # ]
 
     allowed_domains = [u'www.wayfair.com']
