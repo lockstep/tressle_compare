@@ -14,22 +14,49 @@ class Hayneedle(BasePortiaSpider):
     # the allowed domains, and use the terminal command: scrapy crawl hayneedle
     # base_path = 'file:///Users/oeam/projects/tressle_compare/tressle_bot/lib/samples'
     # start_urls = [
-    #     base_path + '/hayneedle-1.html'
+    #     base_path + '/hayneedle-1.html',
+    #     base_path + '/hayneedle-2.html'
     # ]
 
     allowed_domains = [u'www.hayneedle.com']
     start_urls = [
-        u'http://www.hayneedle.com/furniture/sofas-sectionals_501782',
-        u'http://www.hayneedle.com/lighting/outdoor-wall-lights_list_188100?categoryId=188100&selectedFacets=&page=1&sortBy=customerRating%3Adesc&checkCache=true&pageType=PRODUCT_CATEGORY&view=48',
-        u'http://www.hayneedle.com/outdoor/conversation-patio-sets_list_181973?categoryId=181973&selectedFacets=&page=1&sortBy=preferred%3Adesc&checkCache=true&pageType=PRODUCT_CATEGORY&view=48',
-        u'http://www.hayneedle.com/outdoor/dining-patio-sets_list_181974',
-        u'http://www.hayneedle.com/outdoor/conversation-patio-sets_list_181973',
-        u'http://www.hayneedle.com/outdoor/outdoor-furniture-collections_category-adirondack-chairs_list_500180_169019?categoryId=500180&selectedFacets=&page=1&sortBy=&checkCache=true&pageType=COLLECTION_CATEGORY&view=24'
+        u'http://www.hayneedle.com/baby-and-kids/',
+        u'http://www.hayneedle.com/bathroom/',
+        u'http://www.hayneedle.com/bed-and-bath/',
+        u'http://www.hayneedle.com/bedroom/',
+        u'http://www.hayneedle.com/accents-and-decor/',
+        u'http://www.hayneedle.com/dining-room/',
+        u'http://www.hayneedle.com/dorm-life/',
+        u'http://www.hayneedle.com/entryway/',
+        u'http://www.hayneedle.com/fan-gear/',
+        u'http://www.hayneedle.com/apparel/',
+        u'http://www.hayneedle.com/front-porch/',
+        u'http://www.hayneedle.com/furniture/',
+        u'http://www.hayneedle.com/game-room-&-bar/',
+        u'http://www.hayneedle.com/games-and-hobbies/',
+        u'http://www.hayneedle.com/garage/',
+        u'http://www.hayneedle.com/gifts/',
+        u'http://www.hayneedle.com/home-gym/',
+        u'http://www.hayneedle.com/home-improvement-and-maintenance/',
+        u'http://www.hayneedle.com/home-office/',
+        u'http://www.hayneedle.com/kitchen/',
+        u'http://www.hayneedle.com/kitchen-and-dining/',
+        u'http://www.hayneedle.com/laundry-room/',
+        u'http://www.hayneedle.com/lighting/',
+        u'http://www.hayneedle.com/living-room/',
+        u'http://www.hayneedle.com/nursery/',
+        u'http://www.hayneedle.com/outdoor/',
+        u'http://www.hayneedle.com/pets/',
+        u'http://www.hayneedle.com/playroom/',
+        u'http://www.hayneedle.com/seasonal/',
+        u'http://www.hayneedle.com/sports-and-fitness/',
+        u'http://www.hayneedle.com/storage-and-organization/',
+        u'http://www.hayneedle.com/on-sale/'
     ]
     rules = [
         Rule(
             LinkExtractor(
-                allow=(u'product', u'collections'),
+                allow=('product', '_\d{6}'),
                 deny=()
             ),
             callback='parse_item',
@@ -75,6 +102,10 @@ class Hayneedle(BasePortiaSpider):
                         u'sku',
                         u'.sku-display > span:nth-child(2) *::text',
                         []),
+                    Field(
+                        u'manufacturer',
+                        u"//script[contains(., 'brand')]/text()",
+                        [Regex('"brand":(.*?),')]), #need to remove "" when importing data
                     Field(
                         u'description',
                         u'.desc-section .desc-html p *::text',
