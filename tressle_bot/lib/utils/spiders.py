@@ -64,6 +64,7 @@ class BasePortiaSpider(CrawlSpider):
                 response=response,
                 baseurl=get_base_url(response)
             )
+            ld.add_value(u'url', get_base_url(response))
             for field in definition.fields:
                 if hasattr(field, 'fields'):
                     if field.name is not None:
