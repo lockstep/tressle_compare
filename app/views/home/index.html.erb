@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row pt-5">
+    <div class="col-md-12 text-center">
+      <div class="icon-tressle my-1"></div>
+      <div class="mb-3">
+        <h5>
+          Shop smart for your home. Say goodbye to retail prices.
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col search-form mt-3">
+      <%= form_tag products_path, method: :get do %>
+        <div class="form-group input-group">
+          <%= text_field_tag 'query', nil, placeholder: 'What are you looking for?', autofocus: true, class: 'form-control' %>
+          <div class="input-group-addon">
+            <button type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <%= link_to 'Search By Category', nil, class: "btn btn-primary" %>
+  </div>
+
+  <div class="retailer-section">
+    <h5>Or search by retailers</h5>
+    <%= render 'retailers_list' %>
+  </div>
+</div>
