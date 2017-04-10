@@ -1,0 +1,19 @@
+.btn {
+  border-radius: 0;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #CFAC64;
+  border: 0;
+
+  &:hover, &:focus {
+    background-color: lighten(#CFAC64, 8%);
+  }
+  &:active {
+    background-color: #CFAC64;
+    &:focus, &:hover {
+      background-color: #CFAC64;
+    }
+  }
+}

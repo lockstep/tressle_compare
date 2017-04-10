@@ -6,7 +6,7 @@ feature 'Product page' do
       @product = create(:retailer_product, current_price: 1000)
     end
     scenario "user can navigate to a retailer's product site" do
-      visit root_path
+      visit products_path
       expect(page).to have_content 'Study Desk'
       click_on 'Study Desk'
       expect(page).to have_link('$1,000.00', href: @product.url)
