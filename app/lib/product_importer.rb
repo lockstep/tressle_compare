@@ -18,8 +18,9 @@ module ProductImporter
 
   def self.save_or_update_products(items)
     items.each do |item|
-      next if item['url'].blank?
-      product = Product.where(external_url: item['url'].split('?').first)
+      url = extract_data(item['url'])
+      next if url.blank?
+      product = Product.where(external_url: url.split('?').first)
         .first_or_initialize
       product.update({
         name: extract_data(item['name']) || product.name,
