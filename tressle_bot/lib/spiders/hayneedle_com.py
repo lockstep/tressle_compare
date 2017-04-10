@@ -12,7 +12,7 @@ class Hayneedle(BasePortiaSpider):
     name = "hayneedle"
     # To test against local files uncomment the following, comment out
     # the allowed domains, and use the terminal command: scrapy crawl hayneedle
-    # base_path = 'file:///Users/oeam/projects/tressle_compare/tressle_bot/lib/samples'
+    # base_path = 'file:///Users/Admin/Lockstep/apps/tressle_compare/tressle_bot/lib/samples'
     # start_urls = [
     #     base_path + '/hayneedle-1.html',
     #     base_path + '/hayneedle-2.html'
@@ -54,6 +54,12 @@ class Hayneedle(BasePortiaSpider):
         u'http://www.hayneedle.com/on-sale/'
     ]
     rules = [
+        # Rule(
+        #     LinkExtractor(
+        #         allow=('file')
+        #     ),
+        #     callback='parse_item'
+        # )
         Rule(
             LinkExtractor(
                 allow=('product', '_\d{6}'),
@@ -104,8 +110,8 @@ class Hayneedle(BasePortiaSpider):
                         []),
                     Field(
                         u'manufacturer',
-                        u"//script[contains(., 'brand')]/text()",
-                        [Regex('"brand":(.*?),')]), #need to remove "" when importing data
+                        u"//script[contains(., 'brandName')]/text()",
+                        [Regex('brandName": "(.*?)"')]),
                     Field(
                         u'description',
                         u'.desc-section .desc-html p *::text',
