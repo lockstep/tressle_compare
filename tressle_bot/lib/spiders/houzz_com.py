@@ -44,6 +44,7 @@ class Houzz(BasePortiaSpider):
                 deny=()
             ),
             callback='parse_item',
+            follow=True,
         ),
         Rule(
             LinkExtractor(
