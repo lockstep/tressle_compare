@@ -40,11 +40,16 @@ class Houzz(BasePortiaSpider):
     rules = [
         Rule(
             LinkExtractor(
-                allow=(u'photos'),
+                allow=(u'photos\/\d+\/'),
                 deny=()
             ),
             callback='parse_item',
-            follow=True
+        ),
+        Rule(
+            LinkExtractor(
+                allow=(u'photos\/[a-zA-Z]+'),
+                deny=()
+            )
         )
     ]
     items = [
