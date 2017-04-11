@@ -16,7 +16,9 @@
       <h5 class="my-4">
         <span class="badge badge-success">In stock</span>
       </h5>
-      <h5 class="my-4">from: <%= @product.retailer_name %></h5>
+      <% if @product.manufacturer %>
+        <h5 class="my-4">from: <%= @product.manufacturer %></h5>
+      <% end %>
       <div class="d-inline">
         <%= link_to @product.external_url, target: "_blank" do %>
           <button type="button" class="btn btn-primary action">BUY</button>

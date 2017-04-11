@@ -1,5 +1,5 @@
 <% @products.in_groups_of(4) do |rows| %>
-  <div class="row my-3">
+  <div class="row mb-3">
     <% rows.each do |product| %>
       <% next unless product.present? %>
       <div class="col-3 product" id="product-#{product.id}">
