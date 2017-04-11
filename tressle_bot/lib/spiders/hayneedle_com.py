@@ -111,7 +111,7 @@ class Hayneedle(BasePortiaSpider):
                     Field(
                         u'manufacturer',
                         u"//script[contains(., 'brandName')]/text()",
-                        [Regex('brandName": "(.*?)"')]),
+                        [Regex('brandName": ?"(.*?)"')]),
                     Field(
                         u'description',
                         u'.desc-section .desc-html p *::text',
