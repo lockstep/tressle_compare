@@ -28,4 +28,8 @@ class Product < ApplicationRecord
     end
     categories
   end
+
+  def retailer_name
+    external_url.scan(/www.(.*).com\//).join
+  end
 end
