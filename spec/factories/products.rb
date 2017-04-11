@@ -6,6 +6,8 @@ FactoryGirl.define do
     sku 'ABC123'
     image_url 'http://example.com/test.png'
     external_url 'http://example.com/test'
-    current_price 2.3
+    current_price 123.45
+    primary_category 'Living'
+    secondary_category 'Chairs & Desks'
   end
 end

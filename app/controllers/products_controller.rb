@@ -2,22 +2,16 @@ class ProductsController < ApplicationController
   # before_action :authenticate_user!
 
   def index
-    @products = Product.includes_retailers_info
+    @products = Product.all
     @products = @products.search(params[:query]) if params[:query].present?
-    sort_products
-    @products = @products.page(params[:page]).per(5)
+    if params[:secondary_category].present?
+      @products = @products.where(secondary_category: params[:secondary_category])
+    end
+    @products = @products.order(:name)
+    @products = @products.page(params[:page]).per(12)
   end
 
   def show
     @product = Product.find(params[:id])
-  end
-
-  private
-
-  def sort_products
-    @sort = params[:sort] || 'name'
-    @sort_direction = params[:sort_direction] || 'ASC'
-    sort = (@sort == 'price') ? 'retailer_products.current_price' : @sort
-    @products = @products.order("#{sort} #{@sort_direction} NULLS LAST")
   end
 end
