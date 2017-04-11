@@ -1,28 +1,60 @@
-<div class="row">
-  <div class="col-5 text-center">
-    <% image_path = (@product.image_url) ? @product.image_url : 'placeholder.png' %>
-    <%= image_tag image_path, width: 300 %>
+<div class="p-3">
+  <div class="row">
+    <div class="col-5 text-center">
+      <% image_path = (@product.image_url) ? @product.image_url : 'placeholder.png' %>
+      <%= image_tag image_path, width: 300 %>
+    </div>
+    <div class="col">
+      <h4 id="product-title" class="mb-3"><%= @product.name %></h4>
+      <h4 class="my-4">
+        <%= number_to_currency(@product.current_price, precision: 2) %>
+        <% if @product.original_price.present? %>
+          <span class="small text-danger"><s><%= number_to_currency(@product.original_price, precision: 2) %></s></span>
+        <% end %>
+      </h4>
+      <h5 class="my-4">Rating: <%= @product.average_rating %></h5>
+      <h5 class="my-4">
+        <span class="badge badge-success">In stock</span>
+      </h5>
+      <h5 class="my-4">from: <%= @product.retailer_name %></h5>
+      <div class="d-inline">
+        <%= link_to @product.external_url, target: "_blank" do %>
+          <button type="button" class="btn btn-primary action">BUY</button>
+        <% end %>
+      </div>
+      <div class="d-inline">
+        <button type="button" class="btn btn-primary action">ADD TO SHOPPING LIST</button>
+      </div>
+    </div>
   </div>
-  <div class="col">
-    <h4 class="mb-4"><%= @product.name %></h4>
-    <table class="table" id ="price-comparison">
-      <tr>
-        <th>Retailer</th>
-        <th>Price</th>
+  <h5 class="mt-3">Product Details</h5>
+  <p class="mt-3"><%= @product.description %></p>
+  <h5 class="my-3">Compare</h5>
+  <table class="table table-bordered" id ="price-comparison">
+    <tr>
+      <th class="text-center">Sold At</th>
+      <th class="text-center">Rating</th>
+      <th class="text-center">Shipping + Tax</th>
+      <th class="text-center">Availability/ Ship Date</th>
+      <th class="text-center">Base $</th>
+      <th class="text-center">Total $</th>
+      <th class="text-center"></th>
+    </tr>
+    <% Product.with_manufacturer_sku(@product.manufacturer_sku).each do |product| %>
+      <tr class="text-center">
+        <td><%= product.retailer_name %></td>
+        <td><%= product.average_rating %></td>
+        <td></td>
+        <td></td>
+        <td><%= number_to_currency(product.current_price, precision: 2) %></td>
+        <td><%= number_to_currency(product.original_price, precision: 2) %></td>
+        <td>
+          <%= link_to product.external_url, target: "_blank" do %>
+            <button type="button" class="btn btn-primary">SHOP</button>
+          <% end %>
+        </td>
       </tr>
-      <% @product.retailer_products.order(:current_price).each_with_index do |item, index| %>
-        <tr class="price">
-          <td><%= item.retailer.name %></td>
-          <td>
-            <%= link_to number_to_currency(item.current_price, precision: 2), item.url %>
-            <% if index.zero? %>
-              <span class="badge badge-success">Best Price</span>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
-    <p class="mt-3"><%= @product.description %></p>
-  </div>
+    <% end %>
+  </table>
+  <%= link_to 'Back', :back, class: 'float-right mt-2' %>
 </div>
-<%= link_to 'Back', :back, class: 'btn btn-link float-right mt-2' %>

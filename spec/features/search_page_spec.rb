@@ -8,14 +8,11 @@ feature 'Search page' do
     context 'products exist' do
       before do
         @desk = create(:product)
-        @cabinet = create(:product, name: 'Red Cabinet', description: 'Nice cabinet')
-
-        @amazon = create(:retailer)
-        @ebay = create(:retailer, name: 'Ebay')
-
-        create(:retailer_product, product: @desk, retailer: @amazon)
-        create(:retailer_product, product: @desk, retailer: @ebay, current_price: 1000)
-        create(:retailer_product, product: @cabinet, retailer: @amazon, current_price: 456.7)
+        @cabinet = create(:product,
+          name: 'Red Cabinet',
+          description: 'Nice cabinet',
+          current_price: 1000
+        )
       end
 
       scenario 'user sees products in list' do
@@ -57,14 +54,9 @@ feature 'Search page' do
         click_link_or_button 'Sort by'
         all('.sort-product .dropdown-item')[3].click
         within first('.product') do
-          expect(page).to have_content 'Study Desk'
+          expect(page).to have_content 'Red Cabinet'
           expect(page).to have_content '$1,000.00'
         end
-      end
-
-      scenario 'user can search products', js: true do
-        visit products_path
-        complete_search_form
       end
     end
   end
@@ -73,13 +65,6 @@ feature 'Search page' do
     scenario 'user is asked to log in' do
       visit products_path
       expect(page).to have_content 'Login'
-    end
-  end
-
-  def complete_search_form(overrides={})
-    within '#search-product-form' do
-      fill_in 'query', with: overrides[:query] || 'desk'
-      find('#query').native.send_keys(:return)
     end
   end
 end

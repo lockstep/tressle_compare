@@ -17,3 +17,12 @@
     }
   }
 }
+
+a {
+  color: #C4B47F;
+  text-decoration: none;
+
+  &:hover, &:focus {
+    color: lighten(#CFAC64, 8%);
+  }
+}
