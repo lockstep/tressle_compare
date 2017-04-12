@@ -64,7 +64,7 @@ class Houzz(BasePortiaSpider):
                         u'name',
                         u'.rightSideBarWide > .marketplace > div > .productTitle > .header-1 *::text',
                         [],
-                        False),
+                        True),
                     Field(
                         u'description',
                         u'.rightSideBarWide > .marketplace > div > .detailBox > .description *::text',
