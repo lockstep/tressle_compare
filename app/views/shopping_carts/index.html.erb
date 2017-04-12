@@ -1,0 +1,32 @@
+<div class="row shopping-cart-top my-5">
+  <div class="col-md-6">
+    <h3 class='mb-3'>Shopping List</h3>
+  </div>
+  <div class="col-md-6">
+    <%= link_to 'ONE-CLICK BUY', nil, class: "btn btn-primary" %>
+  </div>
+</div>
+<% @products.each do |product| %>
+  <div class="row mb-3 mt-2">
+    <div class="col-md-4">
+      <% image_path = (product.image_url) ? product.image_url : 'placeholder.png' %>
+      <div class="product-image" style="background-image: url(<%= image_path %>);"></div>
+    </div>
+    <div class="col-md-6">
+      <h5 id="product-title" class="mb-3"><%= product.name %></h5>
+      <p class="my-4">
+        <%= number_to_currency(product.current_price, precision: 2) %>
+        <% if product.original_price.present? %>
+          <span class="small text-danger"><s><%= number_to_currency(product.original_price, precision: 2) %></s></span>
+        <% end %>
+      </p>
+      <p class="my-4">Rating: <%= product.average_rating %></p>
+      <p class="my-4">from <%= product.retailer_name %></p>
+    </div>
+    <div class="col-md-2">
+      <%= link_to 'BUY', nil, class: "btn btn-primary" %>
+      <%= link_to 'Delete', nil, class: "btn" %>
+    </div>
+  </div>
+<% end %>
+
