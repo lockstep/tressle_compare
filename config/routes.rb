@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :products
   get 'categories', to: 'categories#index'
   get 'carts', to: 'shopping_carts#index'
+  get 'order_confirmation', to: 'shopping_carts#order_confirmation'
 
   root to: 'home#index'
 end
