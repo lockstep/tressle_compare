@@ -4,6 +4,12 @@
   </button>
   <a class="navbar-brand" href="<%= root_path %>">TRESSLE COMPARE</a>
   <ul class="navbar-nav ml-auto">
+    <% if current_user && current_user.global_admin? && @product %>
+      <li>
+        <%= link_to 'Edit Product', edit_admin_product_path(@product),
+          class: 'nav-link' %>
+      </li>
+    <% end %>
     <li class="nav-item">
       <% if user_signed_in? %>
         <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>

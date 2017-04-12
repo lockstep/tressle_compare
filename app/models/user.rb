@@ -7,4 +7,8 @@ class User < ApplicationRecord
   def password_required?
     new_record? || password.present? || password_confirmation.present?
   end
+
+  def global_admin?
+    email.match('@locksteplabs.com') || email.match('@tressle.com')
+  end
 end
