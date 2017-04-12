@@ -13,9 +13,13 @@
               <span class="small text-danger"><s><%= number_to_currency(product.original_price, precision: 2) %></s></span>
             <% end %>
           </div>
-          <% if product.average_rating.present? %>
-            <div>Rating: <%= product.average_rating %></div>
-          <% end %>
+          <div class="product-info mt-2">
+            <div>From retailer: <%= product.retailer_name %></div>
+            <div>and <%= product.number_of_retailers %> other <%= 'retailer'.pluralize(product.number_of_retailers) %> </div>
+            <% if product.average_rating && product.ratings_count %>
+              <div>Rated <%= product.average_rating %> from <%= product.ratings_count %> <%= 'review'.pluralize(product.ratings_count) %></div>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>

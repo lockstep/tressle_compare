@@ -38,4 +38,8 @@ class Product < ApplicationRecord
     end
   end
 
+  # TEMP
+  def number_of_retailers
+    2
+  end
 end
