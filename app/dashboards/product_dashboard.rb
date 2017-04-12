@@ -88,7 +88,7 @@ class ProductDashboard < Administrate::BaseDashboard
     :average_rating,
     :material,
     :color,
-    # :external_url,
+    :external_url,
   ].freeze
 
   # Overwrite this method to customize how products are displayed
