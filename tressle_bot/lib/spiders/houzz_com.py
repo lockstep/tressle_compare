@@ -45,13 +45,12 @@ class Houzz(BasePortiaSpider):
                 allow=(u'photos\/\d+\/'),
                 deny=()
             ),
-            callback='parse_item',
-            follow=True,
+            callback='parse_item'
         ),
         Rule(
             LinkExtractor(
                 allow=(u'photos\/[a-zA-Z]+'),
-                deny=()
+                deny=(u'--', u'professionals')
             )
         )
     ]
