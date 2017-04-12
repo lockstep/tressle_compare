@@ -19,22 +19,24 @@ class Houzz(BasePortiaSpider):
     # and use the terminal command: scrapy crawl wayfair
     # base_path = 'file:///Users/Bird/Tripler/tressle_compare/tressle_bot/lib/samples'
     # start_urls = [
-    #     base_path + '/houzz-1.html',
-    #     base_path + '/houzz-2.html'
+    #     base_path + '/houzz-1.html'
     # ]
 
     allowed_domains = [u'www.houzz.com']
     start_urls = [
-        u'https://www.houzz.com/',
+        u'http://www.houzz.com/photos/furniture',
+        u'http://www.houzz.com/photos/lighting',
+        u'http://www.houzz.com/photos/home-decor',
         u'http://www.houzz.com/photos/kitchen-and-dining',
         u'http://www.houzz.com/photos/bath-products',
         u'http://www.houzz.com/photos/bedroom-products',
-        u'http://www.houzz.com/photos/living-products',
-        u'http://www.houzz.com/photos/lighting',
-        u'http://www.houzz.com/photos/furniture',
-        u'http://www.houzz.com/photos/home-decor',
+        u'http://www.houzz.com/photos/storage-and-organization',
         u'http://www.houzz.com/photos/home-improvement',
-        u'http://www.houzz.com/photos/outdoor-products'
+        u'http://www.houzz.com/photos/outdoor-products',
+        u'http://www.houzz.com/photos/baby-and-kids',
+        u'http://www.houzz.com/photos/housekeeping-and-laundry',
+        u'http://www.houzz.com/photos/holiday-decorations',
+        u'http://www.houzz.com/photos/pet-supplies',
     ]
 
     rules = [
@@ -75,8 +77,8 @@ class Houzz(BasePortiaSpider):
                         []),
                     Field(
                         u'manufacturer',
-                        u'.rightSideBarWide > .hzProduct > div > .detailBox > .seller-shipping-info > .curMpListing > .list-unstyled > .listing > .text-bold > a *::text',
-                        []),
+                        u"//script[contains(., 'manuName')]/text()",
+                        [Regex('manuName":"(.*?)"')]),
                     Field(
                         u'manufacturer_sku',
                         u"//script[contains(., 'sku')]/text()",
