@@ -26,8 +26,8 @@
 }
 
 .retailers {
-  margin-top: 1.5em;
-  .retailer-logo {
-    height: 60px;
+  .justify-content-center {
+    display: flex;
+    align-items: center;
   }
 }

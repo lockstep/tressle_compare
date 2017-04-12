@@ -1,11 +1,16 @@
-<div class="row retailers text-center">
-  <div class="col-md-4">
-    <%= image_tag('wayfair-logo.png', class: 'retailer-logo') %>
+<div class="retailers pt-3">
+  <div class="row text-center mt-3">
+    <% (1..6).each do |i| %>
+      <div class="col-md-2 justify-content-center">
+        <%= image_tag("retailers/#{i}.png", class: 'img-fluid') %>
+      </div>
+    <% end %>
   </div>
-  <div class="col-md-4">
-    <%= image_tag('houzz-logo.png', class: 'retailer-logo') %>
-  </div>
-  <div class="col-md-4">
-    <%= image_tag('hayneedle-logo.svg', class: 'retailer-logo') %>
+  <div class="row text-center mt-5">
+    <% (7..12).each do |i| %>
+      <div class="col-md-2 justify-content-center">
+      <%= image_tag("retailers/#{i}.png", class: 'img-fluid') %>
+    </div>
+  <% end %>
   </div>
 </div>
