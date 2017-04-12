@@ -5,7 +5,7 @@ module ProductImporter
     scraping.spiders(project: project_id).response['spiders'].each do |spider|
       begin
         items = scraping.spider_items(project: project_id, spider: spider['id']).response
-        save_or_update_products(items)
+        save_or_update_products(items, spider['id'])
       rescue RuntimeError
         # If a spider doesn't have items we see this on the spider_items call:
         # RuntimeError: Invalid Net:HTTP request sent to ApiResponse
@@ -16,7 +16,7 @@ module ProductImporter
     end
   end
 
-  def self.save_or_update_products(items)
+  def self.save_or_update_products(items, retailer)
     items.each do |item|
       url = extract_data(item, 'url')
       next if url.blank?
@@ -38,6 +38,7 @@ module ProductImporter
         tertiary_category: extract_data(item, 'tertiary_category') || product.tertiary_category,
         color: extract_data(item, 'color') || product.color,
         material: extract_data(item, 'material') || product.material,
+        retailer: retailer
       })
     end
   end

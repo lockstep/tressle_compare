@@ -4,9 +4,10 @@ class Product < ApplicationRecord
   validates_presence_of :external_url, :name, :current_price
 
   scope :search, -> (query) {
-    where(<<-SQL, "%#{query}%", "%#{query}%")
+    where(<<-SQL, "%#{query}%", "%#{query}%", query)
       products.name ILIKE ? OR
-      products.description ILIKE ?
+      products.description ILIKE ? OR
+      products.manufacturer_sku = ?
     SQL
   }
 
@@ -30,7 +31,7 @@ class Product < ApplicationRecord
   end
 
   def retailer_name
-    name_in_domain = external_url.scan(/www.(.*).com/).join
+    name_in_domain = retailer || external_url.scan(/www.(.*).com/).join
     if humanized_name = Retailers::BY_NAME_IN_DOMAIN[name_in_domain]
       humanized_name
     else
@@ -38,8 +39,8 @@ class Product < ApplicationRecord
     end
   end
 
-  # TEMP
-  def number_of_retailers
-    2
+  def number_of_other_retailers
+    return [2, 3].sample - 1  if number_of_retailers.nil?
+    number_of_retailers - 1
   end
 end

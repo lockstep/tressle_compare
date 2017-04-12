@@ -7,13 +7,27 @@ button.action {
 
 .product-box {
   border: 1px solid #d1d1d1;
-  height: 300px;
+  height: 320px;
 
   .product-title {
-    min-height: 85px;
+    min-height: 75px;
+    font-size: 15px;
   }
   .product-info div{
     font-size: 14px;
   }
 }
 
+.product-image {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 120px;
+}
+
+.product-image-lg {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  height: 300px;
+}

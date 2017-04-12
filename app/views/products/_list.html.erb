@@ -3,10 +3,10 @@
     <% rows.each do |product| %>
       <% next unless product.present? %>
       <div class="col-3 product" id="product-#{product.id}">
-        <div class="text-center p-2 product-box">
+        <div class="text-center p-1 product-box">
           <% image_path = (product.image_url) ? product.image_url : 'placeholder.png' %>
-          <%= image_tag(image_path, height: '60', class: 'mt-1') %>
-          <h6 class="mt-2 product-title"><%= link_to product.name, product_path(product) %></h6>
+          <div class="product-image" style="background-image: url(<%= image_path %>);"></div>
+          <div class="mt-2 product-title"><%= link_to product.name, product_path(product) %></div>
           <div>
             <%= number_to_currency(product.current_price, precision: 2) %>
             <% if product.original_price.present? %>
@@ -15,7 +15,7 @@
           </div>
           <div class="product-info mt-2">
             <div>From retailer: <%= product.retailer_name %></div>
-            <div>and <%= product.number_of_retailers %> other <%= 'retailer'.pluralize(product.number_of_retailers) %> </div>
+            <div>and <%= product.number_of_other_retailers %> other <%= 'retailer'.pluralize(product.number_of_other_retailers) %> </div>
             <% if product.average_rating && product.ratings_count %>
               <div>Rated <%= product.average_rating %> from <%= product.ratings_count %> <%= 'review'.pluralize(product.ratings_count) %></div>
             <% end %>
