@@ -14,4 +14,9 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
   end
+
+  def comparisons
+    @products = Product.with_comparisons
+    @products = @products.page(params[:page]).per(12)
+  end
 end
