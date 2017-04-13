@@ -20,7 +20,7 @@ class Product < ApplicationRecord
   }
 
   scope :manufacturer_sku_for_comparing, -> {
-    select("manufacturer_sku, string_agg(DISTINCT retailer, ',') as retailer_list")
+    select("manufacturer_sku, STRING_AGG(DISTINCT retailer, ',') AS retailer_list")
     .having('COUNT(id) > 1')
     .group('manufacturer_sku')
   }
@@ -46,8 +46,8 @@ class Product < ApplicationRecord
   end
 
   def number_of_other_retailers
-    return [2, 3].sample - 1  if number_of_retailers.nil?
-    number_of_retailers - 1
+    return 0 if manufacturer_sku.nil?
+    Product.with_manufacturer_sku(self.manufacturer_sku).size - 1
   end
 
   def self.with_comparisons

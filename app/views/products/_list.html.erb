@@ -15,7 +15,9 @@
           </div>
           <div class="product-info mt-2">
             <div>From retailer: <%= product.retailer_name %></div>
-            <div>and <%= product.number_of_other_retailers %> other <%= 'retailer'.pluralize(product.number_of_other_retailers) %> </div>
+            <% unless product.number_of_other_retailers.zero? %>
+              <div>and <%= product.number_of_other_retailers %> other <%= 'retailer'.pluralize(product.number_of_other_retailers) %> </div>
+            <% end %>
             <% if product.average_rating && !product.ratings_count.to_i.zero? %>
               <div>Rated <%= product.average_rating %> from <%= product.ratings_count %> <%= 'review'.pluralize(product.ratings_count) %></div>
             <% end %>
