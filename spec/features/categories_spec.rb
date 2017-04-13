@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Categories page' do
+feature 'Categories' do
   context 'user is signed in' do
     before { @user = create(:user) }
     include_context 'signed in user'
