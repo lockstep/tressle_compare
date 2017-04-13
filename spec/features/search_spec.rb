@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Search page' do
+feature 'Search' do
   context 'user is signed in' do
     before { @user = create(:user) }
     include_context 'signed in user'

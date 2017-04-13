@@ -19,6 +19,12 @@ class Product < ApplicationRecord
     .order(:current_price)
   }
 
+  scope :manufacturer_sku_for_comparing, -> {
+    select("manufacturer_sku, STRING_AGG(DISTINCT retailer, ',') AS retailer_list")
+    .having('COUNT(id) > 1')
+    .group('manufacturer_sku')
+  }
+
   def self.categories
     categories = {}
     pluck(:primary_category).compact.uniq.each do |category|
@@ -40,7 +46,18 @@ class Product < ApplicationRecord
   end
 
   def number_of_other_retailers
-    return [2, 3].sample - 1  if number_of_retailers.nil?
-    number_of_retailers - 1
+    return 0 if manufacturer_sku.nil?
+    Product.with_manufacturer_sku(self.manufacturer_sku).size - 1
+  end
+
+  def self.with_comparisons
+    sku_list = []
+    manufacturer_skus = manufacturer_sku_for_comparing
+    manufacturer_skus.each do |result|
+      next if result.retailer_list.split(',').size < 2
+      sku_list << result.manufacturer_sku
+    end
+    sku_list.compact!
+    where(manufacturer_sku: sku_list)
   end
 end

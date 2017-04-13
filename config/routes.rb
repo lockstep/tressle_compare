@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'categories', to: 'categories#index'
   get 'carts', to: 'shopping_carts#index'
   get 'order_confirmation', to: 'shopping_carts#order_confirmation'
+  get 'product_comparisons', to: 'products#comparisons'
 
   root to: 'home#index'
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Product page' do
+feature 'Products' do
   context 'product exists' do
     before { @product = create(:product) }
 
