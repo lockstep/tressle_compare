@@ -18,7 +18,7 @@ feature 'Homepage' do
   # end
   scenario "user can navigate to search result page" do
     visit root_path
-    expect(page).to have_content 'Shop smart for your home'
+    expect(page).to have_content 'Start your'
     find("button[type=submit]").click
     expect(page).to have_content 'Filter'
   end

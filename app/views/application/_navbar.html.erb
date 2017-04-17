@@ -3,13 +3,17 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="<%= root_path %>">TRESSLE COMPARE</a>
-  <%= link_to 'Comparisons', product_comparisons_path, class: 'nav-link' %>
   <ul class="navbar-nav ml-auto">
-    <% if current_user && current_user.global_admin? && @product %>
+    <% if current_user && current_user.global_admin? %>
       <li>
-        <%= link_to 'Edit Product', edit_admin_product_path(@product),
-          class: 'nav-link' %>
+        <%= link_to 'Comparisons', product_comparisons_path, class: 'nav-link' %>
       </li>
+      <% if @product  %>
+        <li>
+          <%= link_to 'Edit Product', edit_admin_product_path(@product),
+            class: 'nav-link' %>
+        </li>
+      <% end %>
     <% end %>
     <li class="nav-item">
       <% if user_signed_in? %>
