@@ -27,6 +27,13 @@ a {
   }
 }
 
+input[type="password"], input[type="email"] {
+  border: 1px solid #f4f4f4;
+  width: 100%;
+  padding: 8px 10px;
+  margin: 0 0 20px;
+}
+
 .dropdown-item.active {
   background-color: #CFAC64;
 }
