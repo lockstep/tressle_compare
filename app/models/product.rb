@@ -37,7 +37,7 @@ class Product < ApplicationRecord
   end
 
   def retailer_name
-    name_in_domain = retailer || external_url.scan(/www.(.*).com/).join
+    name_in_domain = retailer || external_url.scan(/www\.(.*)\.com/).join
     if humanized_name = Retailers::BY_NAME_IN_DOMAIN[name_in_domain]
       humanized_name
     else

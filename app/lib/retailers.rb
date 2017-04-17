@@ -2,6 +2,7 @@ module Retailers
   BY_NAME_IN_DOMAIN = {
     'wayfair' => 'Wayfair',
     'houzz' => 'Houzz',
-    'hayneedle' => 'Hayneedle'
+    'hayneedle' => 'Hayneedle',
+    'allmodern' => 'AllModern'
   }
 end
