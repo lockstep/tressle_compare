@@ -29,6 +29,8 @@ class ProductDashboard < Administrate::BaseDashboard
     material: Field::String,
     color: Field::String,
     external_url: Field::Text,
+    retailer: Field::String,
+    number_of_retailers: Field::Number,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -89,6 +91,8 @@ class ProductDashboard < Administrate::BaseDashboard
     :material,
     :color,
     :external_url,
+    :retailer,
+    :number_of_retailers,
   ].freeze
 
   # Overwrite this method to customize how products are displayed
