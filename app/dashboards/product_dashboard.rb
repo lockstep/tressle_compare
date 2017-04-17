@@ -30,6 +30,7 @@ class ProductDashboard < Administrate::BaseDashboard
     color: Field::String,
     external_url: Field::Text,
     retailer: Field::String,
+    dimensions: Field::Text,
     number_of_retailers: Field::Number,
   }.freeze
 
@@ -92,6 +93,7 @@ class ProductDashboard < Administrate::BaseDashboard
     :color,
     :external_url,
     :retailer,
+    :dimensions,
     :number_of_retailers,
   ].freeze
 

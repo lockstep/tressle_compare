@@ -60,4 +60,25 @@ class Product < ApplicationRecord
     sku_list.compact!
     where(manufacturer_sku: sku_list)
   end
+
+  # TEMP method - remove or replace with something more robust.
+  def clone(overrides={})
+    new_product = Product.new(cloneable_attrs.merge(overrides))
+    new_product.save!
+  end
+
+  private
+
+  def cloneable_attrs
+    {}.tap do |attrs|
+      [
+        :name, :description, :sku, :image_url, :manufacturer,
+        :manufacturer_sku, :current_price_max, :current_price_min,
+        :current_price, :original_price, :primary_category,
+        :secondary_category, :tertiary_category, :ratings_count,
+        :average_rating, :material, :color, :external_url,
+        :number_of_retailers, :retailer, :dimensions,
+      ].each { |attr| attrs[attr] = send(attr) }
+    end
+  end
 end
