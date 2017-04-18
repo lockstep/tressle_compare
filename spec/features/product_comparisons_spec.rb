@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 feature 'Product Comparisons' do
   context 'user is signed in' do
     before { @user = create(:user) }
@@ -7,12 +9,13 @@ feature 'Product Comparisons' do
       before do
         @desk = create(:product)
         @red_cabinet = create(:product,
-          name: 'Red Cabinet',
+          name: 'First Red Cabinet',
           current_price: 123,
           manufacturer_sku: 'OMG123'
         )
+        sleep 1.seconds
         @red_cabinet2 = create(:product,
-          name: 'Red Cabinet',
+          name: 'Second Red Cabinet',
           retailer: 'bluehome',
           current_price: 456,
           manufacturer_sku: 'OMG123'
@@ -21,8 +24,9 @@ feature 'Product Comparisons' do
 
       scenario "user sees product with comparisons" do
         visit product_comparisons_path
-        expect(page).to have_content 'Red Cabinet'
-        expect(all('.product').size).to eq 2
+        expect(page).to have_content 'Second Red Cabinet'
+        expect(page).not_to have_content 'First Red Cabinet'
+        expect(all('.product').size).to eq 1
         expect(page).not_to have_content @desk.name
       end
     end

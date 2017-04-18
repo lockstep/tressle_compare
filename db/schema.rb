@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170417142351) do
+ActiveRecord::Schema.define(version: 20170418105407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,18 @@ ActiveRecord::Schema.define(version: 20170417142351) do
     t.integer  "number_of_retailers"
     t.string   "retailer"
     t.text     "dimensions"
+    t.index ["average_rating"], name: "index_products_on_average_rating", using: :btree
+    t.index ["color"], name: "index_products_on_color", using: :btree
+    t.index ["current_price"], name: "index_products_on_current_price", using: :btree
+    t.index ["manufacturer"], name: "index_products_on_manufacturer", using: :btree
+    t.index ["manufacturer_sku"], name: "index_products_on_manufacturer_sku", using: :btree
+    t.index ["material"], name: "index_products_on_material", using: :btree
+    t.index ["name"], name: "index_products_on_name", using: :btree
+    t.index ["original_price"], name: "index_products_on_original_price", using: :btree
+    t.index ["primary_category", "secondary_category"], name: "index_products_on_primary_category_and_secondary_category", using: :btree
+    t.index ["ratings_count"], name: "index_products_on_ratings_count", using: :btree
+    t.index ["retailer"], name: "index_products_on_retailer", using: :btree
+    t.index ["tertiary_category"], name: "index_products_on_tertiary_category", using: :btree
   end
 
   create_table "retailer_products", force: :cascade do |t|
