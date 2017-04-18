@@ -5,10 +5,13 @@ class Product < ApplicationRecord
   attr_accessor :shipping_cost, :shipping_time
 
   scope :search, -> (query) {
-    where(<<-SQL, "%#{query}%", "%#{query}%", query)
+    where(<<-SQL, "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%", query, "%#{query}%")
       products.name ILIKE ? OR
+      products.manufacturer ILIKE ? OR
+      products.tertiary_category ILIKE ? OR
       products.description ILIKE ? OR
-      products.manufacturer_sku = ?
+      products.manufacturer_sku = ? OR
+      products.color ILIKE ?
     SQL
   }
 
@@ -55,11 +58,6 @@ class Product < ApplicationRecord
     else
       name_in_domain
     end
-  end
-
-  def number_of_other_retailers
-    return 0 if manufacturer_sku.nil?
-    Product.with_manufacturer_sku(self.manufacturer_sku).size - 1
   end
 
   def self.with_comparisons

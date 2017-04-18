@@ -1,30 +1,34 @@
-<% @products.in_groups_of(4) do |rows| %>
+<% @grouped_products.each_slice(4) do |rows| %>
   <div class="row mb-3">
-    <% rows.each do |product| %>
-      <% next unless product.present? %>
-      <div class="col-3 product" id="product-#{product.id}">
-        <div class="text-center p-1 product-box">
-          <% image_path = (product.image_url) ? product.image_url : asset_path('placeholder.png') %>
-          <div class="product-image" style="background-image: url(<%= image_path %>);"></div>
-          <div class="mt-2 product-title"><%= link_to product.name, product_path(product) %></div>
-          <div>
-            <%= number_to_currency(product.current_price, precision: 2) %>
-            <% if product.original_price.present? %>
-              <span class="small text-danger"><s><%= number_to_currency(product.original_price, precision: 2) %></s></span>
-            <% end %>
-          </div>
-          <div class="product-info mt-2">
-            <div>From retailer: <%= product.retailer_name %></div>
-            <% unless product.number_of_other_retailers.zero? %>
-              <div>and <%= product.number_of_other_retailers %> other <%= 'retailer'.pluralize(product.number_of_other_retailers) %> </div>
-            <% end %>
-            <% if product.average_rating && !product.ratings_count.to_i.zero? %>
-              <div>Rated <%= product.average_rating %> from <%= product.ratings_count %> <%= 'review'.pluralize(product.ratings_count) %></div>
-            <% end %>
+    <% rows.each do |manufacturer_sku, products| %>
+      <% if product = products.first %>
+        <div class="col-3 product" id="product-#{product.id}">
+          <div class="text-center p-1 product-box">
+            <% image_path = (product.image_url) ? product.image_url : asset_path('placeholder.png') %>
+            <div class="product-image" style="background-image: url(<%= image_path %>);"></div>
+            <div class="mt-2 product-title">
+              <%= link_to product.name, product_path(product) %>
+            </div>
+            <div>
+              <%= number_to_currency(product.current_price, precision: 2) %>
+              <% if product.original_price.present? %>
+                <span class="small text-danger"><s><%= number_to_currency(product.original_price, precision: 2) %></s></span>
+              <% end %>
+            </div>
+            <div class="product-info mt-2">
+              <div>From retailer: <%= product.retailer_name %></div>
+              <% number_of_other_retailers = products.size - 1 %>
+              <% if number_of_other_retailers > 0 %>
+                <div>and <%= number_of_other_retailers %> other <%= 'retailer'.pluralize(number_of_other_retailers) %> </div>
+              <% end %>
+              <% if product.average_rating && !product.ratings_count.to_i.zero? %>
+                <div>Rated <%= product.average_rating %> from <%= product.ratings_count %> <%= 'review'.pluralize(product.ratings_count) %></div>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 <% end %>
-<%= paginate @products %>
+<%= paginate @grouped_products %>
