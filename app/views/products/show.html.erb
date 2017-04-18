@@ -34,22 +34,41 @@
   <h5 class="my-3">Compare</h5>
   <table class="table table-bordered" id ="price-comparison">
     <tr>
-      <th class="text-center">Sold At</th>
-      <th class="text-center">Rating</th>
+      <th class="text-center">Retailer</th>
+      <th class="text-center">Rating (Reviews)</th>
       <th class="text-center">Shipping + Tax</th>
-      <th class="text-center">Availability/ Ship Date</th>
+      <th class="text-center">Availability/Ship Date</th>
       <th class="text-center">Base $</th>
       <th class="text-center">Total $</th>
       <th class="text-center"></th>
     </tr>
     <% Product.with_manufacturer_sku(@product.manufacturer_sku).each do |product| %>
-      <tr class="text-center">
+    <tr class="text-center">
+      <% product.set_shipping_info %>
       <td><%= product.retailer_name %></td>
-      <td><%= product.average_rating %></td>
-      <td></td>
-      <td></td>
+      <td>
+        <% if !product.average_rating.blank? %>
+            <%= product.average_rating %> (<%= product.ratings_count %>)
+        <% else %>
+            -
+        <% end %>
+      </td>
+      <td>
+        <% if product.shipping_cost.to_i > 0 %>
+          <%= number_to_currency(product.shipping_cost, precision: 2) %>
+        <% else %>
+          <%= product.shipping_cost %>
+        <% end %>
+      </td>
+      <td><%= product.shipping_time %></td>
       <td><%= number_to_currency(product.current_price, precision: 2) %></td>
-      <td><%= number_to_currency(product.original_price, precision: 2) %></td>
+      <td>
+        <% if [ 'N/A', 'Free shipping' ].include?(product.shipping_cost) %>
+          <%= number_to_currency(product.current_price, precision: 2) %>
+        <% else %>
+          <%= number_to_currency(product.current_price + product.shipping_cost, precision: 2) %>
+        <% end %>
+      </td>
       <td>
         <%= link_to product.external_url, target: "_blank" do %>
           <button type="button" class="btn btn-primary">SHOP</button>

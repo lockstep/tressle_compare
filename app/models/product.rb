@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   has_many :retailer_products
   has_many :retailers, through: :retailer_products
   validates_presence_of :external_url, :name, :current_price
+  attr_accessor :shipping_cost, :shipping_time
 
   scope :search, -> (query) {
     where(<<-SQL, "%#{query}%", "%#{query}%", query)
@@ -34,6 +35,17 @@ class Product < ApplicationRecord
         .uniq
     end
     categories
+  end
+
+  def set_shipping_info
+    self.shipping_time = [
+      '1 business day', '3-5 business days', '1-2 weeks', 'Out of stock'
+    ].sample
+    if shipping_time == 'Out of stock'
+      self.shipping_cost = 'N/A'
+    else
+      self.shipping_cost = [ 'Free shipping', 10, 12, 15, 25, 45 ].sample
+    end
   end
 
   def retailer_name
