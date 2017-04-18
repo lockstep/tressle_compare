@@ -15,6 +15,9 @@ module Retailers
     'Designer Living' => 'retailers/designer_living.png',
     'National Furniture Supply' => 'retailers/national_furniture_supply.png',
     'Bed Bath & Beyond' => 'retailers/bed_bath_and_beyond.png',
-    'Target' => 'retailers/target.png'
+    'Target' => 'retailers/target.png',
+    'Domino' => 'retailers/domino.png',
+    'SMF' => 'retailers/simply_modern_furniture.png',
+    'AFA Stores' => 'retailers/afa_stores.png'
   }
 end
