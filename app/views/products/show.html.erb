@@ -45,7 +45,13 @@
     <% Product.with_manufacturer_sku(@product.manufacturer_sku).each do |product| %>
     <tr class="text-center">
       <% product.set_shipping_info %>
-      <td><%= product.retailer_name %></td>
+      <td>
+        <% if logo_path = Retailers::IMAGE_PATH_BY_NAME[product.retailer_name] %>
+          <%= image_tag logo_path, class: 'small-retailer-logo' %>
+        <% else %>
+          <%= product.retailer_name %>
+        <% end %>
+      </td>
       <td>
         <% if !product.average_rating.blank? %>
             <%= product.average_rating %> (<%= product.ratings_count %>)
